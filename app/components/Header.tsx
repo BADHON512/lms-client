@@ -19,11 +19,15 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
     window.addEventListener("scroll ", () => {
       if (window.scrollY > 80) {
         setActive(true);
+        console.log(window.scrollY)
       } else {
         setActive(false);
       }
     });
   }
+
+
+  
 
   const handleClose = (e: any) => {
     if (e.target.id === "screen") {
@@ -36,7 +40,7 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
         className={`${
           active
             ? "dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark: to-black fixed top-0 left-0 w-full h-[80px] border-b dark:border-[#ffffff]"
-            : "w-full border-b dark: border-[#fffffffc] h-[80px] z-[80] dark:shadow"
+            : "w-full border-b dark: border-[#3b3a3afc] h-[80px] z-[80] dark:shadow"
         }`}
       >
         <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">

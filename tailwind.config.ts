@@ -27,6 +27,7 @@ const config: Config = {
         '1500px':'1500px',
         '800px':'800px',
         '400px':'400px',
+        '300px':'300px'
       }
     },
   },
