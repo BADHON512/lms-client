@@ -4,14 +4,20 @@ import React, { FC, useState } from "react";
 import NavItem from "../utils/NavItem";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import CustomModal from "../utils/CustomModal";
+import Login from "./Auth/Login";
+import SignUp from "./Auth/SignUp";
+import VerificationOtp from "./Auth/VerificationOtp";
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route: string;
+  setRoute: (route: string) => void;
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen }) => {
+const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -19,15 +25,12 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
     window.addEventListener("scroll ", () => {
       if (window.scrollY > 80) {
         setActive(true);
-        console.log(window.scrollY)
+        console.log(window.scrollY);
       } else {
         setActive(false);
       }
     });
   }
-
-
-  
 
   const handleClose = (e: any) => {
     if (e.target.id === "screen") {
@@ -96,6 +99,50 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
           </div>
         )}
       </div>
+
+      {/* LoginModel */}
+
+      {route === "Login" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              // activeItem={activeItem}
+              Component={Login}
+            />
+          )}
+        </>
+      )}
+
+      {route === "Sign-Up" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              // activeItem={activeItem}
+              Component={SignUp}
+            />
+          )}
+        </>
+      )}
+
+      {route === "VerificationOtp" && (
+        <>
+          {open && (
+            <CustomModal
+              open={open}
+              setOpen={setOpen}
+              setRoute={setRoute}
+              // activeItem={activeItem}
+              Component={VerificationOtp}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };
