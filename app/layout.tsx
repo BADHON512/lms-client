@@ -3,6 +3,7 @@ import { Inter, Josefin_Sans, Poppins } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from './utils/theme-provider'
 import { Toaster } from 'react-hot-toast'
+import { Providers } from './Provider'
 
 
 const poppins=Poppins({
@@ -29,10 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${josefin_sans.variable} !bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300 bg-no-repeat`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+         <Providers>
+         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
         {children}
         <Toaster position='bottom-center' reverseOrder={false}/>
         </ThemeProvider>
+         </Providers>
       </body>
     </html>
   )

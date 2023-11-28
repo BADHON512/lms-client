@@ -30,7 +30,7 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
     useRef<HTMLInputElement>(null),
   ];
   const verificationHandler = async () => {
-    console.log("first");
+    setInvalidError(true)
   };
 
   const handelInputChange = (index: number, value: string) => {
@@ -44,6 +44,7 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
       inputRefs[index + 1].current?.focus();
     }
   };
+  console.log(process.env.NEXT_PUBLIC_SERVER_URI)
   return (
     <div>
       <h1 className={`${style.title}`}>Verify Your Account</h1>
@@ -54,7 +55,7 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
         </div>
       </div>
       <br />
-      <div className="w-[70%] m-auto flex items-center justify-around">
+      <div className=" m-auto flex items-center justify-around">
       {
       Object.keys(verifyNumber).map((key,index)=>(
       <input type="number" key={key} ref={inputRefs[index]}
@@ -65,6 +66,15 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
       onChange={(e)=>handelInputChange(index,e.target.value)}/>))
       }
       </div>
+      <br />
+      <div className="w-full flex justify-center">
+        <button className={`${style.button}`} onClick={verificationHandler}>Verify OTP</button> 
+        </div>
+        <br />
+        <h3 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">Go back to ?
+        <span className="text-[#2190ff] pl-1 cursor-pointer" onClick={()=>setRoute('Login')}>sign in</span>
+        </h3>
+     
     </div>
   );
 };
