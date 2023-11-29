@@ -1,7 +1,7 @@
 "use client";
 import { style } from "../../../app/styles/styels";
 import { useFormik } from "formik";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import * as Yup from "yup";
 import {
   AiOutlineEyeInvisible,
@@ -9,12 +9,32 @@ import {
   AiFillGithub,
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import toast from "react-hot-toast";
 
 type Props = {
   setRoute: (route:string)=>void
 };
 
 const SignUp: FC<Props> = ({ setRoute }) => {
+
+  const[register,{isError,data,error,isSuccess}] =useRegisterMutation()
+
+  useEffect(()=>{
+    if(isSuccess){
+      const message=data?.message ||"Registration successful"
+      toast.success(message)
+      setRoute('VerificationOtp')
+    }
+
+     if(error){
+      if('data' in error){
+        const errorData=error as any
+        toast.error(errorData.data.message)
+      }
+     }
+  },[isSuccess,error])
+
   const [show, setShow] = useState<boolean>();
   const schema = Yup.object().shape({
     name: Yup.string().required("Enter your name please"),
@@ -28,6 +48,9 @@ const SignUp: FC<Props> = ({ setRoute }) => {
     initialValues: { name: "", email: "", password: "" },
     validationSchema: schema,
     onSubmit: async ({ name, email, password }) => {
+
+      const data={name, email, password }
+      await register(data)
       setRoute('VerificationOtp')
     },
   });

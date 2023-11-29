@@ -1,7 +1,10 @@
 import { style } from "@/app/styles/styels";
-import { type } from "os";
-import React, { FC, useRef, useState } from "react";
+import { useActivationMutation } from "@/redux/features/auth/auth.api";
+
+import React, { FC, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
+import { useSelector } from "react-redux";
 
 type Props = {
   setRoute: (route: string) => void;
@@ -15,6 +18,27 @@ type VerifyNumber = {
 };
 
 const VerificationOtp: FC<Props> = ({ setRoute }) => {
+  const {token}=useSelector((state:any)=>state.auth)
+  const [activation,{isSuccess,error}]=useActivationMutation()
+  console.log('first', token)
+
+ useEffect(()=>{
+  if(isSuccess){
+    toast.success('Account activated successfully')
+  }
+  if(error){
+    if('data' in error){
+      const errorData=error as any
+      toast.error(errorData.data.message)
+      setInvalidError(true)
+
+    }else{
+      console.log('An error occurrent',error)
+    }
+  }
+ },[isSuccess,error])
+  
+ 
   const [invalidError, setInvalidError] = useState<boolean>();
   const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
     0: "",
@@ -30,7 +54,16 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
     useRef<HTMLInputElement>(null),
   ];
   const verificationHandler = async () => {
+   const verificationNumber= Object.values(verifyNumber).join("")
+   console.log('verificationNumber', verificationNumber)
+   if(verificationNumber.length !==4){
     setInvalidError(true)
+    return
+   }
+   await activation({
+    activation_token:token,
+    activation_code:verificationNumber
+   })
   };
 
   const handelInputChange = (index: number, value: string) => {
@@ -40,7 +73,7 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
 
     if (value === "" && index > 0) {
       inputRefs[index - 1].current?.focus();
-    } else if (value.length === 1 && index > 3) {
+    } else if (value.length === 1 && index < 3) {
       inputRefs[index + 1].current?.focus();
     }
   };
@@ -61,6 +94,7 @@ const VerificationOtp: FC<Props> = ({ setRoute }) => {
       <input type="number" key={key} ref={inputRefs[index]}
       className={`w-[65px] h-[65px] bg-transparent border-[3px] flex items-center text-black dark:text-white justify-center text-[18px] font-Poppins outline-none text-center ${invalidError?'shake border-red-500':'dark:border-white border-[#0000004a]'}`}
       placeholder=""
+      pattern="[0-9]*"
       maxLength={1}
       value={verifyNumber[key as keyof VerifyNumber]}
       onChange={(e)=>handelInputChange(index,e.target.value)}/>))
