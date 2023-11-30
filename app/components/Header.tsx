@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import NavItem from "../utils/NavItem";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
@@ -11,6 +11,9 @@ import VerificationOtp from "./Auth/VerificationOtp";
 import { useSelector } from "react-redux";
 import avatar from "../../public/assets/avatar.jpg";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useSocialAuthMutation } from "@/redux/features/auth/auth.api";
+import toast from "react-hot-toast";
 
 type Props = {
   open: boolean;
@@ -22,7 +25,26 @@ type Props = {
 
 const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const { user } = useSelector((state: any) => state.auth);
-  console.log("user", user);
+  const {data}=useSession()
+  const [socialAuth,{isSuccess,error}]=useSocialAuthMutation()
+
+useEffect(()=>{
+  if(!user){
+    if(data){
+      socialAuth({
+        name:data?.user?.name,
+        email:data?.user?.email,
+        avatar:data?.user?.image
+      })
+    }
+  }
+  if(isSuccess){
+    toast.success("Login successfully")
+  }
+  if(error){
+    toast.error('Something went wrong')
+  }
+},[user,data])
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
 
