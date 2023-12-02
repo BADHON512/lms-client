@@ -4,13 +4,17 @@ import Heading from '../utils/Heading'
 import Header from '../components/Header'
 import Protected from '../hooks/useProtected'
 import Profile from '../components/Profile/Profile'
+import { useSelector } from 'react-redux'
 
-type Props = {}
+type Props = {
+  user:any
+}
 
-const page:FC<Props> = (props: Props) => {
+const page:FC<Props> = () => {
     const [open,setOpen]=useState(false)
  const[activeItem,setActiveItem]=useState(0)
  const [route,setRoute]=useState('Login')
+ const {user}=useSelector((state:any)=>state.auth)
   return (
     <div>
         
@@ -27,7 +31,8 @@ const page:FC<Props> = (props: Props) => {
       setRoute={setRoute}
       route={route}
       />
-      <Profile/>
+      <Profile
+      user={user}/>
      </Protected>
 </div>
   )
