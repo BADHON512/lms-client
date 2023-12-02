@@ -31,7 +31,7 @@ const Profile:FC<Props> = ({user}) => {
   setLogOut(true)
    await signOut()
 
-  redirect('/')
+
  
 
 

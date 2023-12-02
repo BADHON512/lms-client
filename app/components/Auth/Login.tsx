@@ -37,7 +37,7 @@ const Login: FC<Props> = ({setRoute,setOpen}) => {
       toast.error(errorData.data.message)
     }
   }
- },[error])
+ },[isSuccess,error])
 
   const [show, setShow] = useState<boolean>();
 
