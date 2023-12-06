@@ -52,9 +52,11 @@ useEffect(()=>{
       toast.success("Login successfully")
     }
   }
-  if(data===null){
-    setLogOut(true)
-  }
+  // if(data===null&&user){
+  //   setLogOut(true)
+  // }
+
+
 },[user,data])
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -108,7 +110,9 @@ useEffect(()=>{
               {user&&user ? (
                 <Link href={"/profile"}>
                   <Image
-                    src={user.avatar ? user.avatar : avatar}
+                   src={user.avatar|| avatar?user.avatar.url||avatar:avatarDefault}
+                   height={30}
+                   width={30}
                     alt="img not found"
                     className="h-[30px] w-[30px] rounded-full cursor-pointer"
                   />

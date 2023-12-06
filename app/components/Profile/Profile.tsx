@@ -17,6 +17,7 @@ const Profile: FC<Props> = ({ user }) => {
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
+  
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -30,7 +31,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogOut(true);
-    await signOut();
+     signOut();
   };
   return (
     <div className="w-[85%] flex mx-auto">
