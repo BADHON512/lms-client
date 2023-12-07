@@ -17,7 +17,7 @@ const Profile: FC<Props> = ({ user }) => {
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
-  
+   console.log('avatar', avatar)
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {

@@ -110,11 +110,12 @@ useEffect(()=>{
               {user&&user ? (
                 <Link href={"/profile"}>
                   <Image
-                   src={user.avatar|| avatar?user.avatar.url||avatar:avatarDefault}
+                   src={user.avatar|| avatar?user.avatar.url||avatar:avatar}
                    height={30}
                    width={30}
                     alt="img not found"
                     className="h-[30px] w-[30px] rounded-full cursor-pointer"
+                    style={{border:`${activeItem===5? '2px solid #37a39a' : 'none'}`}}
                   />
                 </Link>
               ) : (

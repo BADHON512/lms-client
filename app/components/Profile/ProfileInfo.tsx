@@ -3,8 +3,9 @@ import Image from "next/image";
 import avatarDefault from "../../../public/assets/avatar.jpg";
 import { AiOutlineCamera } from "react-icons/ai";
 import { style } from "@/app/styles/styels";
-import { useUpdateAvatarMutation } from "@/redux/features/user/userApi";
+import { useEditProfileMutation, useUpdateAvatarMutation } from "@/redux/features/user/userApi";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import toast from "react-hot-toast";
 
 type Props = {
   avatar: any;
@@ -16,6 +17,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
 
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+  const [editProfile,{isSuccess:success,error:updateError,}]=useEditProfileMutation()
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
   const imageHandler = (e: any) => {
@@ -41,7 +43,21 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     }
   }, [isSuccess, error]);
 
-  const handleSubmit = (e: any) => {};
+  if(success){
+    toast.success('Update successfully user info')
+  }
+
+  if(error){
+    toast.error('something wrong')
+  }
+
+  const handleSubmit = async(e: any) => {
+    e.preventDefault()
+    if(name!==""){
+      await editProfile(name)
+    }
+    
+  };
   return (
     <div>
       <div className="w-full flex justify-center">
