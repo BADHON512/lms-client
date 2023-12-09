@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import avatarDefault from "../../../public/assets/avatar.jpg";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SiCoursera } from "react-icons/si";
 import { AiOutlineLogout } from "react-icons/ai";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 type Props = {
   user: any;
@@ -67,13 +69,31 @@ const SideBarProfile: FC<Props> = ({
       >
         <SiCoursera size={20} className="text-black dark:text-white" />
         <h1 className="pl-2 800px:block hidden text-black dark:text-white">
-          Change Password
+          Enrolled Courses
         </h1>
       </div>
+      {user.role === "admin" && (
+        <Link
+          className={`w-full flex items-center px-3 py-4 cursor-pointer ${
+            active === 4
+              ? "dark:bg-slate-800 bg-[#ddd3d3]"
+              : "dark:bg-transparent "
+          }`}
+          href={'/admin'}
+        >
+          <MdOutlineAdminPanelSettings
+            size={20}
+            className="text-black dark:text-white"
+          />
+          <h1 className="pl-2 800px:block hidden text-black dark:text-white">
+            Admin Dashboard
+          </h1>
+        </Link>
+      )}
 
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 4
+          active === 5
             ? "dark:bg-slate-800 bg-[#ddd3d3]"
             : "dark:bg-transparent "
         }`}

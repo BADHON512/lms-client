@@ -5,6 +5,7 @@ import { useLogOutQuery } from "@/redux/features/auth/auth.api";
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import ProfileInfo from "./ProfileInfo";
+import ChangePassword from "./ChangePassword";
 type Props = {
   user: any;
 };
@@ -17,7 +18,7 @@ const Profile: FC<Props> = ({ user }) => {
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
-   console.log('avatar', avatar)
+  console.log("avatar", avatar);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -31,7 +32,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogOut(true);
-     signOut();
+    signOut();
   };
   return (
     <div className="w-[85%] flex mx-auto">
@@ -49,9 +50,16 @@ const Profile: FC<Props> = ({ user }) => {
         />
       </div>
 
-      {active === 1 && 
-      <div className="w-full h-full bg-transparent mt-[80px]">
-        <ProfileInfo avatar={avatar} user={user} /></div>}
+      {active === 1 && (
+        <div className="w-full h-full bg-transparent mt-[80px]">
+          <ProfileInfo avatar={avatar} user={user} />
+        </div>
+      )}
+      {active === 2 && (
+        <div className="w-full h-full bg-transparent mt-[80px]">
+          <ChangePassword  user={user} />
+        </div>
+      )}
     </div>
   );
 };
