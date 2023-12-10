@@ -1,12 +1,14 @@
 "use client"
-import React from "react";
+import React ,{useState}from "react";
 import Heading from "../utils/Heading";
 import AdminSideBar from "../components/admin/sidebar/AdminSideBar";
 import AdminProtected from "../hooks/adminProtected";
+import DashboardHero from "./DashboardHero";
 
 type Props = {};
 
 const page = (props: Props) => {
+  const [select, setSelect] = useState<number>();
   return (
  
     <AdminProtected>
@@ -16,9 +18,12 @@ const page = (props: Props) => {
         keyword="Programming mern stack redux machine learning"
       />
 
-      <div className="flex h-[100vh]">
-        <div className="1500px:w-[16%] w-1/5">
-          <AdminSideBar />
+      <div className="flex h-[100vh] ">
+        <div className=" w-[20%] 1500px:w-[20%]  mr-1">
+          <AdminSideBar select={select} setSelect={setSelect} />
+        </div>
+        <div className="w-[80%]">
+          <DashboardHero select={select} setSelect={setSelect} />
         </div>
       </div>
     </AdminProtected>
