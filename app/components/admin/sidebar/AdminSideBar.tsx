@@ -28,8 +28,8 @@ const AdminSideBar: FC<Props> = ({ select, setSelect }) => {
 
   return (
  
-      <Sidebar collapsed={Collapse} backgroundColor="#070930" width="230px">
-        <div className="w-full h-screen overflow-y-auto p-5 ">
+      <Sidebar collapsed={Collapse} backgroundColor="#070930" width="230px" >
+        <div className="w-[230px] h-screen overflow-y-auto p-5  fixed left-  ">
           <div className="flex justify-between w-full items-center ">
             <h1
               className={`${

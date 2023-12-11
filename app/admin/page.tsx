@@ -18,9 +18,11 @@ const page = (props: Props) => {
         keyword="Programming mern stack redux machine learning"
       />
 
-      <div className="flex h-[100vh] ">
-        <div className=" w-[20%] 1500px:w-[20%]  mr-1">
+      <div className="flex min-h-[100vh] ">
+        <div className=" w-[20%] 1500px:w-[20%]  mr-1 duration-300">
+      
           <AdminSideBar select={select} setSelect={setSelect} />
+         
         </div>
         <div className="w-[80%]">
           <DashboardHero select={select} setSelect={setSelect} />

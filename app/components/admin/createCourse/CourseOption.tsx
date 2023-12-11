@@ -23,7 +23,7 @@ const CourseOption: FC<Props> = ({ Active, setActive }) => {
             } relative`}
           >
             <IoMdCheckmark className="text-[25px] ml-1 " />
-            {i !== options.length - 1 && (
+            {i !== options.length-1  && (
               <div
                 className={`absolute h-[40px] w-1 ${
                   Active + 1 > i ? "bg-blue-500" : "bg-[#384766]"

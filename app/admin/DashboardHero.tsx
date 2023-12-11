@@ -10,7 +10,7 @@ type Props = {
 
 const DashboardHero:FC<Props> = ({select,setSelect}) => {
   return (
-    <div>
+    <div className='min-h-screen'>
         <DashboardHeader/>
         {
         select===4&&(
