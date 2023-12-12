@@ -120,9 +120,9 @@ const CourseInfo: FC<Props> = ({
               type="name"
               name=""
               required
-              value={courseInfo.price}
+              value={courseInfo.estimatedPrice}
               onChange={(e) =>
-                setCourseInfo({ ...courseInfo, price: e.target.value })
+                setCourseInfo({ ...courseInfo, estimatedPrice: e.target.value })
               }
               id="name"
               placeholder="Course price "
@@ -215,6 +215,12 @@ const CourseInfo: FC<Props> = ({
             )}
           </label>
         </div>
+        <br />
+        <div className="w-full flex items-center justify-end">
+          <input type="submit" value={'Next'} className="w-full 800px:w-[180px] h-[40px] bg-blue-400  text-center text-white mt-8 cursor-pointer"  />
+        </div>
+        <br />
+        <br />
       </form>
     </div>
   );
