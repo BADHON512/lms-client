@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
+import CourseContent from "./CourseContent";
 
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [Active, setActive] = useState(0);
+  const [Active, setActive] = useState(2);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -34,7 +35,11 @@ const CreateCourse = (props: Props) => {
       suggestion: "",
     },
   ]);
-  const [courseData, setCourseData] = useState();
+  const [courseData, setCourseData] = useState({});
+
+ const  handelSubmit=async()=>{
+
+ }
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%] bg ">
@@ -54,6 +59,16 @@ const CreateCourse = (props: Props) => {
             setPrerequisites={setPrerequisites}
             Active={Active}
             setActive={setActive}
+          />
+        )}
+
+        {Active === 2 && (
+          <CourseContent
+             courseContentData={courseContentData}
+             setCourseContentData={setCourseContentData}
+            Active={Active}
+            setActive={setActive}
+            handelSubmit={handelSubmit}
           />
         )}
       </div>
