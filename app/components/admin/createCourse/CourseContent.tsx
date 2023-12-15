@@ -106,6 +106,7 @@ const CourseContent: FC<Props> = ({
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                       }}
+                      
                       onClick={() => handelCollapseToggle(index)}
                     />
                   </div>
