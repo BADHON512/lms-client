@@ -32,6 +32,7 @@ const CourseContent: FC<Props> = ({
     updateCollapsed[index] = !updateCollapsed[index];
     setCollapsed(updateCollapsed);
   };
+
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handelSubmit}>
@@ -51,7 +52,7 @@ const CourseContent: FC<Props> = ({
                     <div className="flex w-full items-center">
                       <input
                         type="text"
-                        className={`${
+                        className={` text-[20px] ${
                           item.videoSection === "Untitled Section"
                             ? " w-[170px]"
                             : "w-min"
@@ -69,11 +70,12 @@ const CourseContent: FC<Props> = ({
                   </>
                 )}
                 <div className=" flex w-full items-center justify-between my-8">
-                  {isCollapsed[index] ? (
+               <div>
+               {isCollapsed[index] ? (
                     <>
                       {item.title ? (
                         <p className="font-Poppins dark:text-white text-black">
-                          {index + 1},{item.title}
+                          {index + 1},{item.title} 55
                         </p>
                       ) : (
                         <></>
@@ -82,6 +84,7 @@ const CourseContent: FC<Props> = ({
                   ) : (
                     <div></div>
                   )}
+               </div>
 
                   {/* arrow button for collapse video content */}
                   <div className="flex items-center">
@@ -106,19 +109,19 @@ const CourseContent: FC<Props> = ({
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
                       }}
-                      
                       onClick={() => handelCollapseToggle(index)}
                     />
                   </div>
                 </div>
-                {showSectionInput && <>
-                <div className="my-8">
-                    <label htmlFor="" className={`${style.label}`}>Video Title</label>
-                    <input
+                {!isCollapsed[index] && (
+                  <>
+                    <div className="my-8">
+                      <label htmlFor="" className={`${style.label}`}>
+                        Video Title
+                      </label>
+                      <input
                         type="text"
-                        className={`${
-                            style.input
-                        }`}
+                        className={`${style.input}`}
                         value={item.videoSection}
                         onChange={(e) => {
                           const updateData = [...courseContentData];
@@ -126,8 +129,9 @@ const CourseContent: FC<Props> = ({
                           setCourseContentData(updateData);
                         }}
                       />
-                </div>
-                </>}
+                    </div>
+                  </>
+                )}
               </div>
             </>
           );
