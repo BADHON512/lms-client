@@ -70,21 +70,21 @@ const CourseContent: FC<Props> = ({
                   </>
                 )}
                 <div className=" flex w-full items-center justify-between my-8">
-               <div>
-               {isCollapsed[index] ? (
-                    <>
-                      {item.title ? (
-                        <p className="font-Poppins dark:text-white text-black">
-                          {index + 1},{item.title} 55
-                        </p>
-                      ) : (
-                        <></>
-                      )}
-                    </>
-                  ) : (
-                    <div></div>
-                  )}
-               </div>
+                  <div>
+                    {isCollapsed[index] ? (
+                      <>
+                        {item.title ? (
+                          <p className="font-Poppins dark:text-white text-black">
+                            {index + 1},{item.title} 55
+                          </p>
+                        ) : (
+                          <></>
+                        )}
+                      </>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
 
                   {/* arrow button for collapse video content */}
                   <div className="flex items-center">
