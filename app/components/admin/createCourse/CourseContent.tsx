@@ -225,6 +225,7 @@ const CourseContent: FC<Props> = ({
                         className="flex items-center text-[18px] dark:text-white text-black cursor-pointer"
                         onClick={() => handleAddLink(index)}
                       >
+                        
                         <BsLink45Deg className="mr-2" /> Add Link
                       </p>
                     </div>
