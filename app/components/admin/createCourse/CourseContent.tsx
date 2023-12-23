@@ -231,6 +231,7 @@ const CourseContent: FC<Props> = ({
                   </>
                 )}
               </div>
+              
             </>
           );
         })}
