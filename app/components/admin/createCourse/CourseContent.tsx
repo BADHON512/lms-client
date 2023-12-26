@@ -1,8 +1,9 @@
 import { style } from "@/app/styles/styels";
 import React, { FC, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { BsLink45Deg, BsPencil } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 type Props = {
   Active: number;
@@ -44,6 +45,30 @@ const CourseContent: FC<Props> = ({
     updateData[index].link.push({ title: "", url: "" });
     setCourseContentData(updateData);
   };
+
+  const newContentHandler=(item:any)=>{
+    if(item.title===''|| item.description===''|| item.videoUrl===''||item.link[0].title===''|| item.link[0].url===''){
+      toast.error('Please fill all the fields first')
+    }else{
+      let newVideoSection=''
+      if(courseContentData.length>0){
+        const lastVideoSection=courseContentData[courseContentData.length-1].videoSection
+        // use the last videoSection if available else use user input
+        if(lastVideoSection){
+          newVideoSection=lastVideoSection
+        }
+      }
+      const newContent={
+        videoUrl:'',
+        title:'',
+        description:'',
+        videoSection:newVideoSection,
+        link:[{title:'',url:''}]
+
+      }
+      setCourseContentData([...courseContentData,newContent])
+    }
+  }
 
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
@@ -93,7 +118,7 @@ const CourseContent: FC<Props> = ({
                       )}
                     </>
                   ) : (
-                    <div></div>
+                    <div> 🎃🎊</div>
                   )}
 
                   {/* arrow button for collapse video content */}
@@ -148,10 +173,10 @@ const CourseContent: FC<Props> = ({
                       <input
                         type="text"
                         className={`${style.input}`}
-                        value={item.videoSection}
+                        value={item.title}
                         onChange={(e) => {
                           const updateData = [...courseContentData];
-                          updateData[index].videoSection = e.target.value;
+                          updateData[index].title = e.target.value;
                           setCourseContentData(updateData);
                         }}
                       />
@@ -231,6 +256,16 @@ const CourseContent: FC<Props> = ({
                   </>
                   
                 )}
+                {/* add new content */}
+                {
+                  index===courseContentData.length-1&&(
+                    <div>
+                      <p className=" flex items-center text-[18px] dark:text-white text-black cursor-pointer" onClick={(e)=>newContentHandler(item)}>
+                        <AiOutlinePlusCircle className='mr-2'/> Add New Content
+                      </p>
+                    </div>
+                  )
+                }
               </div>
               
             </>
