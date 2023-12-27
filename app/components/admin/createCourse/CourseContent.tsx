@@ -46,29 +46,78 @@ const CourseContent: FC<Props> = ({
     setCourseContentData(updateData);
   };
 
-  const newContentHandler=(item:any)=>{
-    if(item.title===''|| item.description===''|| item.videoUrl===''||item.link[0].title===''|| item.link[0].url===''){
-      toast.error('Please fill all the fields first')
-    }else{
-      let newVideoSection=''
-      if(courseContentData.length>0){
-        const lastVideoSection=courseContentData[courseContentData.length-1].videoSection
+  const newContentHandler = (item: any) => {
+    if (
+      item.title === "" ||
+      item.description === "" ||
+      item.videoUrl === "" ||
+      item.link[0].title === "" ||
+      item.link[0].url === ""
+    ) {
+      toast.error("Please fill all the fields first");
+    } else {
+      let newVideoSection = "";
+      if (courseContentData.length > 0) {
+        const lastVideoSection =
+          courseContentData[courseContentData.length - 1].videoSection;
         // use the last videoSection if available else use user input
-        if(lastVideoSection){
-          newVideoSection=lastVideoSection
+        if (lastVideoSection) {
+          newVideoSection = lastVideoSection;
         }
       }
-      const newContent={
-        videoUrl:'',
-        title:'',
-        description:'',
-        videoSection:newVideoSection,
-        link:[{title:'',url:''}]
-
-      }
-      setCourseContentData([...courseContentData,newContent])
+      const newContent = {
+        videoUrl: "",
+        title: "",
+        description: "",
+        videoSection: newVideoSection,
+        link: [{ title: "", url: "" }],
+      };
+      setCourseContentData([...courseContentData, newContent]);
     }
-  }
+  };
+
+  const addNewSection = () => {
+    if (
+      (courseContentData[courseContentData.length - 1].title =
+        "" ||
+        courseContentData[courseContentData.length - 1].description === "" ||
+        courseContentData[courseContentData.length - 1].videoUrl === "" ||
+        courseContentData[courseContentData.length - 1].link[0].title === "" ||
+        courseContentData[courseContentData.length - 1].link[0].url === "")
+    ) {
+      toast.error("Please fill all fields first");
+    } else {
+      setActiveSection(activeSection + 1);
+      const newContent = {
+        videoUrl: "",
+        title: "",
+        description: "",
+        videoSection: `Untitled Section ${activeSection}`,
+        link: [{ title: "", url: "" }],
+      };
+      setCourseContentData([courseContentData, newContent]);
+    }
+  };
+
+  const handelPrev = () => {
+    setActive(Active--);
+  };
+
+  const handelNext = () => {
+    if (
+      (courseContentData[courseContentData.length - 1].title =
+        "" ||
+        courseContentData[courseContentData.length - 1].description === "" ||
+        courseContentData[courseContentData.length - 1].videoUrl === "" ||
+        courseContentData[courseContentData.length - 1].link[0].title === "" ||
+        courseContentData[courseContentData.length - 1].link[0].url === "")
+    ) {
+      toast.error("Please fill all fields first");
+    } else {
+      setActive(Active++);
+      handelCourseSubmit();
+    }
+  };
 
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
@@ -254,24 +303,53 @@ const CourseContent: FC<Props> = ({
                       </p>
                     </div>
                   </>
-                  
                 )}
                 {/* add new content */}
-                {
-                  index===courseContentData.length-1&&(
-                    <div>
-                      <p className=" flex items-center text-[18px] dark:text-white text-black cursor-pointer" onClick={(e)=>newContentHandler(item)}>
-                        <AiOutlinePlusCircle className='mr-2'/> Add New Content
-                      </p>
-                    </div>
-                  )
-                }
+                {index === courseContentData.length - 1 && (
+                  <div>
+                    <p
+                      className=" flex items-center text-[18px] dark:text-white text-black cursor-pointer"
+                      onClick={(e) => newContentHandler(item)}
+                    >
+                      <AiOutlinePlusCircle className="mr-2" /> Add New Content
+                    </p>
+                  </div>
+                )}
               </div>
-              
             </>
           );
         })}
+
+        <br />
+        <div>
+          <p
+            className=" flex items-center text-[18px] dark:text-white text-black cursor-pointer"
+            onClick={() => addNewSection()}
+          >
+            <AiOutlinePlusCircle className="mr-2" /> Add New Content
+          </p>
+        </div>
       </form>
+      <br />
+      <div className="w-full flex justify-between items-center">
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelPrev()}
+        >
+          {" "}
+          Prev
+        </div>
+
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelNext()}
+        >
+          {" "}
+          Next
+        </div>
+      </div>
     </div>
   );
 };

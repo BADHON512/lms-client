@@ -49,26 +49,27 @@ const CourseData: FC<Props> = ({
   };
 
   const handelAddPrerequisite = () => {
-    setPrerequisites([...prerequisites,{title:''}])
+    setPrerequisites([...prerequisites, { title: "" }]);
   };
 
   const handelPreRequisiteRemoveInput = (index: number) => {
-    const IRemove= prerequisites.filter((v:any,i:number)=> i !==index)
-    setPrerequisites(IRemove)
-    
+    const IRemove = prerequisites.filter((v: any, i: number) => i !== index);
+    setPrerequisites(IRemove);
   };
 
-  const handelPrev=()=>{
- setActive(Active-1)
-  }
-  const handelNext=()=>{
-   if(benefits[benefits.length-1]?.title !==''&& prerequisites[prerequisites.length-1]?.title!== ''){
-    setActive(Active+1)
-   }else{
-    toast.error('Please fill the all fields and Next')
-   }
-
-  }
+  const handelPrev = () => {
+    setActive(Active - 1);
+  };
+  const handelNext = () => {
+    if (
+      benefits[benefits.length - 1]?.title !== "" &&
+      prerequisites[prerequisites.length - 1]?.title !== ""
+    ) {
+      setActive(Active + 1);
+    } else {
+      toast.error("Please fill the all fields and Next");
+    }
+  };
   return (
     <div className="w-[80%] m-auto mt-24 block">
       <div>
@@ -133,13 +134,24 @@ const CourseData: FC<Props> = ({
         />
       </div>
       <div className="w-full flex justify-between items-center">
-        <div className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
-        rounded mt-8 cursor-pointer" onClick={()=>handelPrev()}> Prev</div>
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelPrev()}
+        >
+          {" "}
+          Prev
+        </div>
 
-<div className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
-        rounded mt-8 cursor-pointer" onClick={()=>handelNext()}> Next</div>
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelNext()}
+        >
+          {" "}
+          Next
+        </div>
       </div>
-
     </div>
   );
 };
