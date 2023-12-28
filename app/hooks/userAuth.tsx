@@ -6,6 +6,6 @@ export default function UserAuth() {
   if (user) {
     return true;
   } else {
-    return true;
+    return false;
   }
 }
