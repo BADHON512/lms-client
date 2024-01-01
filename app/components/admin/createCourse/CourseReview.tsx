@@ -4,7 +4,7 @@ type Props = {}
 
 const CourseReview = (props: Props) => {
   return (
-    <div>a</div>
+    <div></div>
   )
 }
 
