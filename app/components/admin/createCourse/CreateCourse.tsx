@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,FC} from "react";
 import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
@@ -6,7 +6,7 @@ import CourseContent from "./CourseContent";
 
 type Props = {};
 
-const CreateCourse = (props: Props) => {
+const CreateCourse: FC<Props> = ({}) => {
   const [Active, setActive] = useState(2);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
@@ -38,6 +38,38 @@ const CreateCourse = (props: Props) => {
   const [courseData, setCourseData] = useState({});
 
  const  handelSubmit=async()=>{
+  // Format benefits array
+  const formattedBenefits=benefits.map((benefit)=>({title:benefit.title}))
+  const formattedPrerequisites=prerequisites.map((prerequisite)=>({title:prerequisite.title}))
+  //format course content array
+  const formattedCourseContentData=courseContentData.map((content)=>({  
+    videoUrl:content.videoUrl,
+    title:content.title,
+    description:content.description,
+    videoSection:content.videoSection,
+    link:content.link.map((links)=>({
+      title:links.title,
+      url:links.url
+    })),
+    suggestion:content.suggestion,
+  }))
+  // prepare our data object
+
+
+  const data={
+    name:CourseInfo.name,
+    description:courseInfo.description,
+    estimatedPrice:courseInfo.estimatedPrice,
+    tags:courseInfo.tags,
+    level:courseInfo.level,
+    demoUrl:courseInfo.demoUrl,
+    thumbnail:courseInfo.thumbnail,
+    benefits:formattedBenefits, 
+    prerequisites:formattedPrerequisites,
+    courseContentData:formattedCourseContentData,
+    
+  }
+ console.log(cou)
 
  }
   return (

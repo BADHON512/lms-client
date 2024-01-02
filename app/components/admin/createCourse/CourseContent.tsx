@@ -247,7 +247,7 @@ const CourseContent: FC<Props> = ({
                         }}
                       />
                     </div>
-                    {item?.link.map((link: any, linkindex: number) => (
+                    {item?.link?.map((link: any, linkindex: number) => (
                       <div className=" mb-3 block" key={index}>
                         <div className="w-full flex items-center justify-between">
                           <label htmlFor="" className={`${style.label}`}>
