@@ -11,6 +11,7 @@ const CreateCourse: FC<Props> = ({}) => {
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
+    price:"",
     estimatedPrice: "",
     tags: "",
     level: "",
@@ -59,19 +60,23 @@ const CreateCourse: FC<Props> = ({}) => {
   const data={
     name:CourseInfo.name,
     description:courseInfo.description,
+    price:courseInfo.price,
     estimatedPrice:courseInfo.estimatedPrice,
     tags:courseInfo.tags,
     level:courseInfo.level,
     demoUrl:courseInfo.demoUrl,
     thumbnail:courseInfo.thumbnail,
     benefits:formattedBenefits, 
+    totalVideos:courseContentData.length,
     prerequisites:formattedPrerequisites,
-    courseContentData:formattedCourseContentData,
+    courseContent:formattedCourseContentData,
     
   }
- console.log(cou)
+ setCourseData(data)
+ 
 
  }
+ console.log('CourseData', courseData)
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%] bg ">
