@@ -1,3 +1,5 @@
+
+'use client'
 import { style } from "@/app/styles/styels";
 import React, { FC, useState } from "react";
 

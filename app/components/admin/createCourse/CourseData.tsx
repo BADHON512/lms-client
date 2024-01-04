@@ -1,3 +1,4 @@
+'use client'
 import { style } from "@/app/styles/styels";
 import React, { FC } from "react";
 import toast from "react-hot-toast";

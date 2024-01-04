@@ -1,3 +1,4 @@
+'use client'
 import { style } from "@/app/styles/styels";
 import React, { FC, useState } from "react";
 import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
@@ -42,7 +43,7 @@ const CourseContent: FC<Props> = ({
 
   const handleAddLink = (index: number) => {
     const updateData = [...courseContentData];
-    updateData[index].link.push({ title: "", url: "" });
+    updateData[index]?.link?.push({ title: "", url: "" });
     setCourseContentData(updateData);
   };
 

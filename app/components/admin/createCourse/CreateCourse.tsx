@@ -1,3 +1,4 @@
+'use client'
 import React, { useState ,FC} from "react";
 import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
@@ -7,7 +8,7 @@ import CourseContent from "./CourseContent";
 type Props = {};
 
 const CreateCourse: FC<Props> = ({}) => {
-  const [Active, setActive] = useState(2);
+  const [Active, setActive] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -48,7 +49,7 @@ const CreateCourse: FC<Props> = ({}) => {
     title:content.title,
     description:content.description,
     videoSection:content.videoSection,
-    link:content.link.map((links)=>({
+    link:content.link?.map((links)=>({
       title:links.title,
       url:links.url
     })),
