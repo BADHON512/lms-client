@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { style } from "@/app/styles/styels";
 import React, { FC, useState } from "react";
 import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
