@@ -1,5 +1,5 @@
-'use client'
-import React, { useState ,FC} from "react";
+"use client";
+import React, { useState, FC } from "react";
 import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
@@ -12,7 +12,7 @@ const CreateCourse: FC<Props> = ({}) => {
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
-    price:"",
+    price: "",
     estimatedPrice: "",
     tags: "",
     level: "",
@@ -39,45 +39,45 @@ const CreateCourse: FC<Props> = ({}) => {
   ]);
   const [courseData, setCourseData] = useState({});
 
- const  handelSubmit=async()=>{
-  // Format benefits array
-  const formattedBenefits=benefits.map((benefit)=>({title:benefit.title}))
-  const formattedPrerequisites=prerequisites.map((prerequisite)=>({title:prerequisite.title}))
-  //format course content array
-  const formattedCourseContentData=courseContentData.map((content)=>({  
-    videoUrl:content.videoUrl,
-    title:content.title,
-    description:content.description,
-    videoSection:content.videoSection,
-    link:content.link?.map((links)=>({
-      title:links.title,
-      url:links.url
-    })),
-    suggestion:content.suggestion,
-  }))
-  // prepare our data object
+  const handelSubmit = async () => {
+    // Format benefits array
+    const formattedBenefits = benefits.map((benefit) => ({
+      title: benefit.title,
+    }));
+    const formattedPrerequisites = prerequisites.map((prerequisite) => ({
+      title: prerequisite.title,
+    }));
+    //format course content array
+    const formattedCourseContentData = courseContentData.map((content) => ({
+      videoUrl: content.videoUrl,
+      title: content.title,
+      description: content.description,
+      videoSection: content.videoSection,
+      link: content.link?.map((links) => ({
+        title: links.title,
+        url: links.url,
+      })),
+      suggestion: content.suggestion,
+    }));
+    // prepare our data object
 
-
-  const data={
-    name:CourseInfo.name,
-    description:courseInfo.description,
-    price:courseInfo.price,
-    estimatedPrice:courseInfo.estimatedPrice,
-    tags:courseInfo.tags,
-    level:courseInfo.level,
-    demoUrl:courseInfo.demoUrl,
-    thumbnail:courseInfo.thumbnail,
-    benefits:formattedBenefits, 
-    totalVideos:courseContentData.length,
-    prerequisites:formattedPrerequisites,
-    courseContent:formattedCourseContentData,
-    
-  }
- setCourseData(data)
- 
-
- }
- console.log('CourseData', courseData)
+    const data = {
+      name: CourseInfo.name,
+      description: courseInfo.description,
+      price: courseInfo.price,
+      estimatedPrice: courseInfo.estimatedPrice,
+      tags: courseInfo.tags,
+      level: courseInfo.level,
+      demoUrl: courseInfo.demoUrl,
+      thumbnail: courseInfo.thumbnail,
+      benefits: formattedBenefits,
+      totalVideos: courseContentData.length,
+      prerequisites: formattedPrerequisites,
+      courseContent: formattedCourseContentData,
+    };
+    setCourseData(data);
+  };
+  console.log("CourseData", courseData);
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%] bg ">
@@ -102,8 +102,8 @@ const CreateCourse: FC<Props> = ({}) => {
 
         {Active === 2 && (
           <CourseContent
-             courseContentData={courseContentData}
-             setCourseContentData={setCourseContentData}
+            courseContentData={courseContentData}
+            setCourseContentData={setCourseContentData}
             Active={Active}
             setActive={setActive}
             handelSubmit={handelSubmit}
