@@ -5,6 +5,7 @@ import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 
+
 type Props = {};
 
 const CreateCourse: FC<Props> = ({}) => {
