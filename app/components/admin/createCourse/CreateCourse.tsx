@@ -81,6 +81,7 @@ const CreateCourse: FC<Props> = ({}) => {
   console.log("CourseData", courseData);
   return (
     <div className="w-full flex min-h-screen">
+      
       <div className="w-[80%] bg ">
         {Active === 0 && (
           <CourseInfo
