@@ -91,6 +91,7 @@ const CreateCourse: FC<Props> = ({}) => {
             setActive={setActive}
           />
         )}
+        
         {Active === 1 && (
           <CourseData
             benefits={benefits}
