@@ -5,7 +5,6 @@ import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 
-
 type Props = {};
 
 const CreateCourse: FC<Props> = ({}) => {
@@ -81,7 +80,6 @@ const CreateCourse: FC<Props> = ({}) => {
   console.log("CourseData", courseData);
   return (
     <div className="w-full flex min-h-screen">
-      
       <div className="w-[80%] bg ">
         {Active === 0 && (
           <CourseInfo
@@ -91,7 +89,7 @@ const CreateCourse: FC<Props> = ({}) => {
             setActive={setActive}
           />
         )}
-        
+
         {Active === 1 && (
           <CourseData
             benefits={benefits}
