@@ -96,7 +96,7 @@ const CourseContent: FC<Props> = ({
         videoSection: `Untitled Section ${activeSection}`,
         link: [{ title: "", url: "" }],
       };
-      setCourseContentData([courseContentData, newContent]);
+      setCourseContentData([...courseContentData, newContent]);
     }
   };
 

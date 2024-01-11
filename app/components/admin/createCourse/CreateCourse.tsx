@@ -4,6 +4,7 @@ import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
+import CourseReview from "./CourseReview";
 
 type Props = {};
 
@@ -78,6 +79,10 @@ const CreateCourse: FC<Props> = ({}) => {
     setCourseData(data);
   };
   console.log("CourseData", courseData);
+  const handelCourseCreate = (e:any) => { 
+
+   }
+
   return (
     <div className="w-full flex min-h-screen">
       <div className="w-[80%] bg ">
@@ -108,6 +113,15 @@ const CreateCourse: FC<Props> = ({}) => {
             Active={Active}
             setActive={setActive}
             handelSubmit={handelSubmit}
+          />
+        )}
+        
+        {Active === 3 && (
+          <CourseReview
+         
+            Active={Active}
+            setActive={setActive}
+            handelCourseCreate={handelCourseCreate}
           />
         )}
       </div>
