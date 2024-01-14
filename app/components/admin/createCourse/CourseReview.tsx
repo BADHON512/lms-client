@@ -27,6 +27,4 @@ const CourseReview:FC<Props> = ({
   )
 }
 
-
-
 export default CourseReview
