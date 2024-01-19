@@ -59,6 +59,22 @@ const CourseReview: FC<Props> = ({
             Apply
           </div>
         </div>
+        <p className="pb-1">Source code included</p>
+        <p className="pb-1">Full lifetime access</p>
+        <p className="pb-1">Certificate of Completion</p>
+        <p className="pb-1 800px:pb-1">Premium support</p>
+      </div>
+      <div className="w-full">
+        <div className="w-full 800px:pr-5">
+          <h1 className="text-[25px] font-Poppins font-[600]">{courseData?.name}</h1>
+          <div className="flex items-center justify-between pt-3">
+            <div className="flex items-center">
+              <Ratings rating={0}/>
+              <h1>0 Reviews</h1>
+            </div>
+            <h2>0 Student</h2>
+          </div>
+        </div>
       </div>
     </div>
   );
