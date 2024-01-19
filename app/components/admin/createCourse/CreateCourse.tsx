@@ -80,7 +80,7 @@ const CreateCourse: FC<Props> = ({}) => {
   };
   console.log("CourseData", courseData);
   const handelCourseCreate = (e:any) => { 
-
+     const data=courseData
    }
 
   return (
@@ -118,7 +118,7 @@ const CreateCourse: FC<Props> = ({}) => {
         
         {Active === 3 && (
           <CourseReview
-         
+           courseData={courseData}
             Active={Active}
             setActive={setActive}
             handelCourseCreate={handelCourseCreate}

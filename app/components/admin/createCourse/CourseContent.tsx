@@ -115,7 +115,7 @@ const CourseContent: FC<Props> = ({
     ) {
       toast.error("Please fill all fields first");
     } else {
-      setActive(Active++);
+      setActive(Active+1);
       handelCourseSubmit();
     }
   };

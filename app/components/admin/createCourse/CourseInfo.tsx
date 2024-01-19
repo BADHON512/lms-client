@@ -207,7 +207,7 @@ const CourseInfo: FC<Props> = ({
             {courseInfo.thumbnail ? (
               <img
                 src={courseInfo.thumbnail}
-                alt=""
+                alt="dd"
                 className="max-h-full w-full object-cover"
               />
             ) : (
