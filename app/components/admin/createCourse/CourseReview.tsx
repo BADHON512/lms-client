@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import CoursePlayer from "./CoursePlayer";
 import { style } from "@/app/styles/styels";
+import Ratings from "@/app/utils/Ratings";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {
   Active: number;
@@ -20,6 +22,14 @@ const CourseReview: FC<Props> = ({
 
   const discountPercentagePrice=discountPercentage.toFixed(0)
 
+  
+  const handelPrev = () => {
+    setActive(Active--);
+  };
+
+  const handelNext = () => {
+    setActive(Active--);
+  }
   
   return (
     <div className="w-[90%] m-auto py-5 mb-5">
@@ -69,11 +79,65 @@ const CourseReview: FC<Props> = ({
           <h1 className="text-[25px] font-Poppins font-[600]">{courseData?.name}</h1>
           <div className="flex items-center justify-between pt-3">
             <div className="flex items-center">
-              <Ratings rating={0}/>
+              <Ratings rating={5}/>
               <h1>0 Reviews</h1>
             </div>
             <h2>0 Student</h2>
           </div>
+          <br />
+          <h1 className="text-[25px] font-Poppins font-[600]">
+            What you will learn from this course?
+          </h1>
+        </div>
+        {
+          courseData?.benefits?.map((item:any,index:number)=>(
+            <div key={index} className="w-full flex 800px:items-center py-2">
+              <div className="w-[15px] mr-1">
+              <IoCheckmarkDoneOutline size={20} />
+              </div>
+              <p className="pl-2">{item.title}</p>
+            </div>
+          ))
+        }
+        <br />
+        <h1 className="text-[25px] font-Poppins font-[600]">
+            What are the prerequisites for starting this course ?
+          </h1>
+          {courseData?.prerequisites.map((item:any,index:number)=>(
+               <div key={index} className="w-full flex 800px:items-center py-2">
+               <div className="w-[15px] mr-1">
+               <IoCheckmarkDoneOutline size={20} />
+               </div>
+               <p className="pl-2">{item.title}</p>
+             </div>
+          ))}
+
+        {/* course description */}
+        <div className="w-full">
+          <h1 className="text-[25px] font-Poppins font-[600]">
+            Course Details
+          </h1>
+          {courseData?.description}
+        </div>
+      </div>
+      <br />
+      <div className="w-full flex justify-between items-center">
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelPrev()}
+        >
+          {" "}
+          Prev
+        </div>
+
+        <div
+          className="w-full 800px:w-[100px] flex items-center justify-center h-[40px]  bg-blue-400 text-center text-white
+        rounded mt-8 cursor-pointer"
+          onClick={() => handelNext()}
+        >
+          {" "}
+          Next
         </div>
       </div>
     </div>
