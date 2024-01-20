@@ -24,11 +24,11 @@ const CourseReview: FC<Props> = ({
 
   
   const handelPrev = () => {
-    setActive(Active--);
+    setActive(Active-1);
   };
 
   const handelNext = () => {
-    setActive(Active--);
+    handelCourseCreate()
   }
   
   return (
@@ -137,7 +137,7 @@ const CourseReview: FC<Props> = ({
           onClick={() => handelNext()}
         >
           {" "}
-          Next
+          Create course
         </div>
       </div>
     </div>

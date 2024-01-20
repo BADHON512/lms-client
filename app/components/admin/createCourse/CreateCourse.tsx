@@ -1,15 +1,33 @@
 "use client";
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import CourseInfo from "./CourseInfo";
 import CourseOption from "./CourseOption";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CourseReview from "./CourseReview";
+import { useCreateCourseMutation } from "@/redux/features/courses/coursesApi";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
 const CreateCourse: FC<Props> = ({}) => {
   const [Active, setActive] = useState(0);
+
+  const [createCourse,{isLoading,error,isSuccess}]=useCreateCourseMutation()
+
+  useEffect(()=>{
+    if(isSuccess){
+      toast.success('Course created successfully')
+      redirect('/admin/all/course')
+    }
+    if(error){
+      if( 'data' in error){
+        const errorMessage=error as any
+        toast.error(errorMessage.data.message)
+      }
+    }
+  },[isLoading,error,isSuccess])
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -79,8 +97,11 @@ const CreateCourse: FC<Props> = ({}) => {
     setCourseData(data);
   };
   console.log("CourseData", courseData);
-  const handelCourseCreate = (e:any) => { 
+  const handelCourseCreate =async (e:any) => { 
      const data=courseData
+     if(!isLoading){
+      await createCourse(data)
+     }
    }
 
   return (
