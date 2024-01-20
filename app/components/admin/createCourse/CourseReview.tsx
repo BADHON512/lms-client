@@ -137,7 +137,7 @@ const CourseReview: FC<Props> = ({
           onClick={() => handelNext()}
         >
           {" "}
-          Create course
+          Create
         </div>
       </div>
     </div>
