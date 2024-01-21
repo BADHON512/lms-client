@@ -2,6 +2,7 @@
 import React, { FC } from "react";
 import DashboardHeader from "./DashboardHeader";
 import CreateCourse from "../components/admin/createCourse/CreateCourse";
+import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
 
 type Props = {
   select: number;
@@ -14,7 +15,8 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       <DashboardHeader />
       {select === 4 && <CreateCourse />}
 
-      {select === 5 && <h1>all course live</h1>}
+      {select === 5 && 
+      <AllCourse/>}
     </div>
   );
 };
