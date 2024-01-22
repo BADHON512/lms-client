@@ -1,3 +1,4 @@
+import Loader from "@/app/components/Loader/Loader";
 import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
@@ -64,11 +65,11 @@ const AllCourse = (props: Props) => {
       },
     },
   ];
-  const rows = [
+  const rows:any = [
 
   ];
 
-  data?.course.forEach((item:any)=>(
+  data?.courses?.forEach((item:any)=>(
     rows.push({
         id: item._id,
         Title: item.name,
@@ -80,7 +81,9 @@ const AllCourse = (props: Props) => {
 
   return (
     <div className="mt-[120px] ">
-      <Box>
+    {
+        isLoading? <Loader/>:
+        <Box>
         <Box
           height="80vh"
           sx={{
@@ -137,6 +140,7 @@ const AllCourse = (props: Props) => {
           <DataGrid checkboxSelection rows={rows} columns={colums} />
         </Box>
       </Box>
+    }
     </div>
   );
 };
