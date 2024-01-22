@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
 import React from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiFillEdit, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 type Props = {};
 
@@ -36,7 +36,19 @@ const AllCourse = (props: Props) => {
       flex: 0.5,
     },
     {
-      field: "",
+      field: "  ",
+      headerName: "Edit",
+      flex: 0.2,
+      renderCell: (params:any) => {
+        return (
+          <Button>
+            <AiFillEdit className="dark:text-white text-black" />
+          </Button>
+        );
+      },
+    },
+    {
+      field: " ",
       headerName: "Delete",
       flex: 0.2,
       renderCell: () => {
