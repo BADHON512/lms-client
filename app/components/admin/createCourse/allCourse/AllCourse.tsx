@@ -1,3 +1,4 @@
+import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
@@ -8,6 +9,9 @@ type Props = {};
 
 const AllCourse = (props: Props) => {
   const { theme, setTheme } = useTheme();
+
+  const {isLoading,data,error}=useGetAllCoursesQuery({})
+  console.log(data)
 
   const colums = [
     {
@@ -26,13 +30,13 @@ const AllCourse = (props: Props) => {
       flex: 0.5,
     },
     {
-      field: "Purchesed",
-      headerName: "Purchesed",
+      field: "Purchased",
+      headerName: "Purchased",
       flex: 0.5,
     },
     {
-      field: "Createed_at",
-      headerName: "Createed_at",
+      field: "Created_at",
+      headerName: "Created_at",
       flex: 0.5,
     },
     {
@@ -61,14 +65,19 @@ const AllCourse = (props: Props) => {
     },
   ];
   const rows = [
-    {
-      id: 145721,
-      Title: "Snow",
-      Ratings: "5start",
-      Purchesed: 14,
-      Createed_at: "2/5/2024",
-    },
+
   ];
+
+  data?.course.forEach((item:any)=>(
+    rows.push({
+        id: item._id,
+        Title: item.name,
+        Ratings: item.ratings,
+        Purchased: item.purchased,
+        Created_at:item.createdAt ,
+    })
+  ))
+
   return (
     <div className="mt-[120px] ">
       <Box>
