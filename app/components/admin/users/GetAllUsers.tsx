@@ -1,6 +1,7 @@
 import Loader from "@/app/components/Loader/Loader";
+import { style } from "@/app/styles/styels";
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
-import { Box, Button } from "@mui/material";
+import { Box, Button,Modal } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
 import React from "react";
@@ -9,8 +10,9 @@ import { format } from "timeago.js";
 
 type Props = {};
 
-const GetAllUser = (props: Props) => {
+const GetAllUsers = (props: Props) => {
   const { theme, setTheme } = useTheme();
+  const [Active, setActive] = React.useState(false);
 
   const {isLoading,data,error}=useGetAllUsersQuery({})
   console.log(data)
@@ -24,7 +26,7 @@ const GetAllUser = (props: Props) => {
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: 0.5,
     },
     {
       field: "email",
@@ -43,8 +45,8 @@ const GetAllUser = (props: Props) => {
     },
 
     {
-      field: " ",
-      headerName: "Delete",
+      field: "Mail",
+      headerName: "Mail",
       flex: 0.2,
       renderCell: (params:any) => {
         return (
@@ -56,26 +58,14 @@ const GetAllUser = (props: Props) => {
     },
 
     {
-      field: " ",
+      field: "Delete",
       headerName: "Delete",
       flex: 0.2,
       renderCell: () => {
         return (
-          <Button>
+          <button onClick={()=>setActive(true)}>
             <AiOutlineDelete className="dark:text-white text-black" size={22} />
-          </Button>
-        );
-      },
-    },
-    {
-      field: "",
-      headerName: "Delete",
-      flex: 0.2,
-      renderCell: () => {
-        return (
-          <Button>
-            <AiOutlineDelete className="dark:text-white text-black" size={22} />
-          </Button>
+          </button>
         );
       },
     },
@@ -154,10 +144,33 @@ const GetAllUser = (props: Props) => {
         >
           <DataGrid checkboxSelection rows={rows} columns={colums} />
         </Box>
+        {Active && (
+        <Modal
+       open={Active}
+       onClose={()=>(!Active)}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+        >
+          <Box className=' absolute top-[50%] left-[50%]'>
+            <div className="w-[50vh] min-h-[10vh] bg-black p-2">
+               <h1 className="text-center font-Poppins mt-3 ">Are your sure you want to delete </h1>
+          
+                
+                <div className="flex justify-between w-full my-8 px-5">
+                    <button onClick={()=>setActive(!Active)} className={`${style.button} !w-[70px] !h-[20px] !rounded-sm`}>Cancel</button>
+                    <button  className={`${style.button} !w-[70px] !h-[20px] !rounded-sm !bg-red-600`}>Delete</button>
+                </div>
+                </div>   
+
+
+          </Box>
+        </Modal>
+      )}
       </Box>
     }
     </div>
   );
 };
 
-export default GetAllUser;
+export default GetAllUsers;
+ 

@@ -3,7 +3,9 @@ import React, { FC } from "react";
 import DashboardHeader from "./DashboardHeader";
 import CreateCourse from "../components/admin/createCourse/CreateCourse";
 import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
-import GetAllUser from "../components/admin/user/GetAlluser";
+
+import ManageTeam from "../components/admin/ManageTeam/ManageTeam";
+import GetAllUsers from "../components/admin/users/GetAllUsers";
 
 type Props = {
   select: number;
@@ -14,13 +16,12 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
   return (
     <div className="min-h-screen">
       <DashboardHeader />
-      {select === 2 && 
-      <GetAllUser/>}
+      {select === 2 && <GetAllUsers />}
       {select === 4 && <CreateCourse />}
 
-      {select === 5 && 
-      <AllCourse/>}
-  
+      {select === 5 && <AllCourse />}
+
+      {select === 9 && <ManageTeam />}
     </div>
   );
 };
