@@ -1,18 +1,18 @@
 import Loader from "@/app/components/Loader/Loader";
-import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
 import React from "react";
-import { AiFillEdit, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { format, } from 'timeago.js';
+import { AiOutlineDelete,AiOutlineMail } from "react-icons/ai";
+import { format } from "timeago.js";
 
 type Props = {};
 
-const AllCourse = (props: Props) => {
+const GetAllUser = (props: Props) => {
   const { theme, setTheme } = useTheme();
 
-  const {isLoading,data,error}=useGetAllCoursesQuery({})
+  const {isLoading,data,error}=useGetAllUsersQuery({})
   console.log(data)
 
   const colums = [
@@ -22,39 +22,53 @@ const AllCourse = (props: Props) => {
       flex: 0.5,
     },
     {
-      field: "Title",
-      headerName: "Course Title",
+      field: "name",
+      headerName: "Name",
       flex: 1,
     },
     {
-      field: "Ratings",
-      headerName: "Ratings",
+      field: "email",
+      headerName: "Email",
       flex: 0.5,
     },
     {
-      field: "Purchased",
-      headerName: "Purchased",
+      field: "role",
+      headerName: "Role",
       flex: 0.5,
     },
     {
       field: "Created_at",
-      headerName: "Created_at",
+      headerName: "Join At",
       flex: 0.5,
     },
+
     {
-      field: "  ",
-      headerName: "Edit",
+      field: " ",
+      headerName: "Delete",
       flex: 0.2,
       renderCell: (params:any) => {
         return (
+          <a href={` mailto:${params.row.email}`}>
+            <AiOutlineMail className="dark:text-white text-black" size={22} />
+          </a>
+        );
+      },
+    },
+
+    {
+      field: " ",
+      headerName: "Delete",
+      flex: 0.2,
+      renderCell: () => {
+        return (
           <Button>
-            <AiFillEdit className="dark:text-white text-black" size={22} />
+            <AiOutlineDelete className="dark:text-white text-black" size={22} />
           </Button>
         );
       },
     },
     {
-      field: " ",
+      field: "",
       headerName: "Delete",
       flex: 0.2,
       renderCell: () => {
@@ -70,16 +84,15 @@ const AllCourse = (props: Props) => {
 
   ];
 
-  data?.courses?.forEach((item:any)=>(
+  data?.users?.forEach((item:any)=>(
     rows.push({
-        id: item._id,
-        Title: item.name,
-        Ratings: item.ratings,
-        Purchased: item.purchased,
-        Created_at:format(item.createdAt ),
-    })
+      id: item._id,
+      name: item.name+"xx",
+      email: item.email,
+      role: item.role ,
+      Created_at: format(item.createdAt) ,
+  })
   ))
-  
 
   return (
     <div className="mt-[120px] ">
@@ -147,4 +160,4 @@ const AllCourse = (props: Props) => {
   );
 };
 
-export default AllCourse;
+export default GetAllUser;
