@@ -11,14 +11,21 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    getAllCourses:builder.query({
-      query:()=>({
-        url:'get-all-courses',
-        method:'GET',
-        credentials:'include' as const
-      })
+    getAllCourses: builder.query({
+      query: () => ({
+        url: "get-all-courses",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+    deleteCourseById: builder.mutation({
+      query: (id) => ({
+        url: `course-delete/${id}`,
+        method: "DELETE",
+        credentials: "include" as const,
+      }),
     }),
   }),
 });
 
-export const { useCreateCourseMutation,useGetAllCoursesQuery } = courseApi;
+export const { useCreateCourseMutation, useGetAllCoursesQuery,useDeleteCourseByIdMutation } = courseApi;

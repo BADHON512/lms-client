@@ -110,7 +110,7 @@ useEffect(()=>{
               {user&&user ? (
                 <Link href={"/profile"}>
                   <Image
-                   src={user.avatar|| avatar?user.avatar.url||avatar:avatar}
+                   src={user?.avatar|| avatar?user?.avatar?.url||avatar:avatar}
                    height={30}
                    width={30}
                     alt="img not found"

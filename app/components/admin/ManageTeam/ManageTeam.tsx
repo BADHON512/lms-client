@@ -91,14 +91,14 @@ const ManageTeam = (props: Props) => {
       })
     );
   }
- const UpdateRole=()=>{
+ const UpdateRole=async()=>{
 
     if(updateRole.email===''){
         toast.error('Please drop the email ')
     }else if(updateRole.role===''){
         toast.error('Please select the role ')
     }else{
-        updateUserRole(updateRole)
+        await updateUserRole(updateRole)
         if(isSuccess){
             refetch()
             toast.success('User role is Changed')
