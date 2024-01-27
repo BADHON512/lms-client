@@ -4,14 +4,18 @@ import { useDeleteCourseByIdMutation, useGetAllCoursesQuery } from "@/redux/feat
 import { Box, Button,Modal } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
+import React, {FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillEdit, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { format } from "timeago.js";
 
-type Props = {};
+type Props = {
+  setEdit:(Edit:number)=>void
+  setSelect:(select:number)=>void
+  setEditCourseID:(EditCourseID:string)=>void
+};
 
-const AllCourse = (props: Props) => {
+const AllCourse:FC<Props> = ({setEdit,setSelect,setEditCourseID}) => {
   const { theme, setTheme } = useTheme();
    const [id,setId]=useState('')
    const [Active, setActive] = useState(false)
@@ -51,7 +55,13 @@ const AllCourse = (props: Props) => {
       flex: 0.2,
       renderCell: (params: any) => {
         return (
-          <Button>
+          <Button onClick={
+          ()=>{
+            setEdit(88)
+            setSelect(0)
+            setEditCourseID(params.row.id)
+          }
+          }>
             <AiFillEdit className="dark:text-white text-black" size={22} />
           </Button>
         );
