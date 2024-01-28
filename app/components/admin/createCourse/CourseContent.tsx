@@ -22,7 +22,7 @@ const CourseContent: FC<Props> = ({
   courseContentData,
 }) => {
   const [isCollapsed, setCollapsed] = useState(
-    Array(courseContentData.length).fill(false)
+    Array(courseContentData?.length).fill(false)
   );
   const [activeSection, setActiveSection] = useState(1);
   const handelSubmit = async (e: any) => {
@@ -123,7 +123,7 @@ const CourseContent: FC<Props> = ({
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handelSubmit}>
-        {courseContentData.map((item: any, index: number) => {
+        {courseContentData?.map((item: any, index: number) => {
           const showSectionInput =
             index === 0 ||
             item.videoSection !== courseContentData[index - 1].videoSection;

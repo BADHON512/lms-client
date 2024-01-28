@@ -1,5 +1,5 @@
 "use client";
-import React, { FC,useState } from "react";
+import React, { FC,useEffect,useState } from "react";
 import DashboardHeader from "./DashboardHeader";
 import CreateCourse from "../components/admin/createCourse/CreateCourse";
 import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
@@ -14,18 +14,19 @@ type Props = {
 };
 
 const DashboardHero: FC<Props> = ({ select, setSelect }) => {
-  const [Edit, setEdit] = useState<number>()
+
   const [EditCourseID, setEditCourseID] = useState<string>('')
+
   return (
     <div className="min-h-screen">
       <DashboardHeader />
       {select === 2 && <GetAllUsers />}
       {select === 4 && <CreateCourse />}
 
-      {select === 5 && <AllCourse setEdit={setEdit} setSelect={setSelect} setEditCourseID={setEditCourseID}/>}
+      {select === 5 && <AllCourse  setSelect={setSelect} setEditCourseID={setEditCourseID}/>}
 
       {select === 9 && <ManageTeam />}
-      {Edit === 88 && <EditCourse EditCourseID={EditCourseID}/> }
+      {select === 88 && <EditCourse EditCourseID={EditCourseID}/> }
     </div>
   );
 };

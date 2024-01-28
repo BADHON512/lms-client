@@ -84,7 +84,7 @@ const CreateCourse: FC<Props> = ({}) => {
       name: CourseInfo.name,
       description: courseInfo.description,
       price: courseInfo.price,
-      estimatedPrice: courseInfo.estimatedPrice,
+      estimatePrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,
@@ -92,7 +92,7 @@ const CreateCourse: FC<Props> = ({}) => {
       benefits: formattedBenefits,
       totalVideos: courseContentData.length,
       prerequisites: formattedPrerequisites,
-      courseContent: formattedCourseContentData,
+      courseData: formattedCourseContentData,
     };
     setCourseData(data);
   };

@@ -10,12 +10,12 @@ import { AiFillEdit, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { format } from "timeago.js";
 
 type Props = {
-  setEdit:(Edit:number)=>void
+
   setSelect:(select:number)=>void
   setEditCourseID:(EditCourseID:string)=>void
 };
 
-const AllCourse:FC<Props> = ({setEdit,setSelect,setEditCourseID}) => {
+const AllCourse:FC<Props> = ({setSelect,setEditCourseID}) => {
   const { theme, setTheme } = useTheme();
    const [id,setId]=useState('')
    const [Active, setActive] = useState(false)
@@ -57,8 +57,8 @@ const AllCourse:FC<Props> = ({setEdit,setSelect,setEditCourseID}) => {
         return (
           <Button onClick={
           ()=>{
-            setEdit(88)
-            setSelect(0)
+            setSelect(88)
+         
             setEditCourseID(params.row.id)
           }
           }>

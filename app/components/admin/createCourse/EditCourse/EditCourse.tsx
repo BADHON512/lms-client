@@ -48,11 +48,11 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
         tags:findCourseData.tags,
         level:findCourseData.level,
         demoUrl:findCourseData.demoUrl,
-        thumbnail:findCourseData.thumbnail,
+        thumbnail:findCourseData.url,
       })
       setBenefits(findCourseData.benefits)
       setPrerequisites(findCourseData.prerequisites)
-      setCourseContentData(findCourseData.courseContent)
+      setCourseContentData(findCourseData.courseData)
     }
   },[findCourseData])
   const [courseInfo, setCourseInfo] = useState({
@@ -87,14 +87,14 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
 
   const handelSubmit = async () => {
     // Format benefits array
-    const formattedBenefits = benefits.map((benefit) => ({
+    const formattedBenefits = benefits?.map((benefit) => ({
       title: benefit.title,
     }));
-    const formattedPrerequisites = prerequisites.map((prerequisite) => ({
+    const formattedPrerequisites = prerequisites?.map((prerequisite) => ({
       title: prerequisite.title,
     }));
     //format course content array
-    const formattedCourseContentData = courseContentData.map((content) => ({
+    const formattedCourseContentData = courseContentData?.map((content) => ({
       videoUrl: content.videoUrl,
       title: content.title,
       description: content.description,
@@ -111,7 +111,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
       name: CourseInfo.name,
       description: courseInfo.description,
       price: courseInfo.price,
-      estimatedPrice: courseInfo.estimatedPrice,
+      estimatePrice: courseInfo.estimatedPrice,
       tags: courseInfo.tags,
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,
@@ -123,12 +123,10 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
     };
     setCourseData(data);
   };
-  console.log("CourseData", courseData);
+  console.log("courseContentData", courseContentData);
   const handelCourseCreate = async (e: any) => {
     const data = courseData;
-    if (!isLoading) {
-      await createCourse(data);
-    }
+   
   };
 
   return (
