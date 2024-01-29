@@ -48,11 +48,19 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
         tags:findCourseData.tags,
         level:findCourseData.level,
         demoUrl:findCourseData.demoUrl,
-        thumbnail:findCourseData.url,
+        thumbnail:findCourseData.thumbnail,
       })
       setBenefits(findCourseData.benefits)
       setPrerequisites(findCourseData.prerequisites)
-      setCourseContentData(findCourseData.courseData)
+      setCourseContentData(findCourseData.courseData || [{
+        videoUrl: "",
+        title: "",
+        description: "",
+        videoSection: "",
+        link: [{ title: "", url: "" }],
+        suggestion: "",
+      }]);
+      
     }
   },[findCourseData])
   const [courseInfo, setCourseInfo] = useState({
