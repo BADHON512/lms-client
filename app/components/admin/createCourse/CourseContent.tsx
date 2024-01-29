@@ -79,12 +79,11 @@ const CourseContent: FC<Props> = ({
 
   const addNewSection = () => {
     if (
-      (courseContentData[courseContentData.length - 1].title =
-        "" ||
-        courseContentData[courseContentData.length - 1].description === "" ||
-        courseContentData[courseContentData.length - 1].videoUrl === "" ||
-        courseContentData[courseContentData.length - 1].link[0].title === "" ||
-        courseContentData[courseContentData.length - 1].link[0].url === "")
+      courseContentData[courseContentData.length - 1].title === "" ||
+      courseContentData[courseContentData.length - 1].description === "" ||
+      courseContentData[courseContentData.length - 1].videoUrl === "" ||
+      courseContentData[courseContentData.length - 1].link[0].title === "" ||
+      courseContentData[courseContentData.length - 1].link[0].url === ""
     ) {
       toast.error("Please fill all fields first");
     } else {
@@ -101,21 +100,20 @@ const CourseContent: FC<Props> = ({
   };
 
   const handelPrev = () => {
-    setActive(Active--);
+    setActive(Active - 1);
   };
 
   const handelNext = () => {
     if (
-      (courseContentData[courseContentData.length - 1].title =
-        "" ||
-        courseContentData[courseContentData.length - 1].description === "" ||
-        courseContentData[courseContentData.length - 1].videoUrl === "" ||
-        courseContentData[courseContentData.length - 1].link[0].title === "" ||
-        courseContentData[courseContentData.length - 1].link[0].url === "")
+      courseContentData[courseContentData.length - 1].title === "" ||
+      courseContentData[courseContentData.length - 1].description === "" ||
+      courseContentData[courseContentData.length - 1].videoUrl === "" ||
+      courseContentData[courseContentData.length - 1].link[0].title === "" ||
+      courseContentData[courseContentData.length - 1].link[0].url === ""
     ) {
       toast.error("Please fill all fields first");
     } else {
-      setActive(Active+1);
+      setActive(Active + 1);
       handelCourseSubmit();
     }
   };
@@ -124,6 +122,7 @@ const CourseContent: FC<Props> = ({
     <div className="w-[80%] m-auto mt-24 p-3">
       <form onSubmit={handelSubmit}>
         {courseContentData?.map((item: any, index: number) => {
+          console.log("item", item.title);
           const showSectionInput =
             index === 0 ||
             item.videoSection !== courseContentData[index - 1].videoSection;

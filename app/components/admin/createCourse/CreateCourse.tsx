@@ -19,7 +19,7 @@ const CreateCourse: FC<Props> = ({}) => {
   useEffect(()=>{
     if(isSuccess){
       toast.success('Course created successfully')
-      redirect('/admin/all/course')
+      
     }
     if(error){
       if( 'data' in error){
@@ -32,12 +32,14 @@ const CreateCourse: FC<Props> = ({}) => {
     name: "",
     description: "",
     price: "",
-    estimatedPrice: "",
+    estimatePrice: "",
     tags: "",
     level: "",
     demoUrl: "",
     thumbnail: "",
   });
+
+  console.log('courseInfo', courseInfo)
 
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
@@ -84,7 +86,7 @@ const CreateCourse: FC<Props> = ({}) => {
       name: CourseInfo.name,
       description: courseInfo.description,
       price: courseInfo.price,
-      estimatePrice: courseInfo.estimatedPrice,
+      estimatePrice: courseInfo.estimatePrice,
       tags: courseInfo.tags,
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,

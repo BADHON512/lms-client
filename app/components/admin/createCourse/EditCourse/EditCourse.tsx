@@ -19,7 +19,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
   const { isLoading, data,refetch } = useGetAllCoursesQuery({},{refetchOnMountOrArgChange:true});
 
   const findCourseData= data&& data?.courses?.find((v:any)=>v._id===EditCourseID)
-  console.log(findCourseData)
+ 
 
 //   const findCourseData = data && data?.find((v: any) => v._id === EditCourseID);
  
@@ -44,7 +44,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
         name:findCourseData.name,
         description:findCourseData.description,
         price:findCourseData.price,
-        estimatedPrice:findCourseData.estimatedPrice,
+        estimatePrice:findCourseData.estimatePrice,
         tags:findCourseData.tags,
         level:findCourseData.level,
         demoUrl:findCourseData.demoUrl,
@@ -59,7 +59,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
     name: "",
     description: "",
     price: "",
-    estimatedPrice: "",
+    estimatePrice: "",
     tags: "",
     level: "",
     demoUrl: "",
@@ -84,6 +84,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
     },
   ]);
   const [courseData, setCourseData] = useState({});
+  console.log(courseData)
 
   const handelSubmit = async () => {
     // Format benefits array
@@ -111,7 +112,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
       name: CourseInfo.name,
       description: courseInfo.description,
       price: courseInfo.price,
-      estimatePrice: courseInfo.estimatedPrice,
+      estimatePrice: courseInfo.estimatePrice,
       tags: courseInfo.tags,
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,
@@ -168,6 +169,7 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
             Active={Active}
             setActive={setActive}
             handelCourseCreate={handelCourseCreate}
+            edit={true}
           />
         )}
       </div>

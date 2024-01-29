@@ -5,6 +5,7 @@ import Ratings from "@/app/utils/Ratings";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {
+  edit: boolean;
   Active: number;
   setActive: (active: number) => void;
   courseData: any;
@@ -12,13 +13,14 @@ type Props = {
 };
 
 const CourseReview: FC<Props> = ({
+  edit,
   Active,
   setActive,
   courseData,
   handelCourseCreate,
 }) => {
 
-  const discountPercentage=((courseData?.estimatedPrice-courseData?.price)/courseData?.estimatedPrice)*100
+  const discountPercentage=((courseData?.estimatePrice-courseData?.price)/courseData?.estimatePrice)*100
 
   const discountPercentagePrice=discountPercentage.toFixed(0)
 
@@ -47,7 +49,7 @@ const CourseReview: FC<Props> = ({
             {courseData?.pride===0? 'Free' : courseData?.price+ '$'}
           </h1>
           <h1 className="pl-3 text-[20px] mt-2 line-through opacity-80">
-            {courseData?.estimatedPrice} $
+            {courseData?.estimatePrice} $
 
           </h1>
 
@@ -136,8 +138,7 @@ const CourseReview: FC<Props> = ({
         rounded mt-8 cursor-pointer"
           onClick={() => handelNext()}
         >
-          {" "}
-          Create
+         {edit ? 'Update' : 'Create'}
         </div>
       </div>
     </div>

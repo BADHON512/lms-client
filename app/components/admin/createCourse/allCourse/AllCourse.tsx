@@ -20,6 +20,7 @@ const AllCourse:FC<Props> = ({setSelect,setEditCourseID}) => {
    const [id,setId]=useState('')
    const [Active, setActive] = useState(false)
   const { isLoading, data,refetch } = useGetAllCoursesQuery({},{refetchOnMountOrArgChange:true});
+  console.log('data', data)
   const [deleteCourseById,{isSuccess,isLoading:Loading,error}]=useDeleteCourseByIdMutation()
 
 
