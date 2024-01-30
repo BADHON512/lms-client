@@ -83,7 +83,7 @@ const CreateCourse: FC<Props> = ({}) => {
     // prepare our data object
 
     const data = {
-      name: CourseInfo.name,
+      name: courseInfo.name,
       description: courseInfo.description,
       price: courseInfo.price,
       estimatePrice: courseInfo.estimatePrice,

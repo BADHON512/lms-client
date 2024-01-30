@@ -204,9 +204,9 @@ const CourseInfo: FC<Props> = ({
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
           >
-            {courseInfo.thumbnail ? (
+            {courseInfo.thumbnail ?(
               <img
-                src={courseInfo.thumbnail}
+                src={courseInfo?.thumbnail?.url||courseInfo.thumbnail}
                 alt="dd"
                 className="max-h-full w-full object-cover"
               />
