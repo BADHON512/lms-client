@@ -110,6 +110,12 @@ const CreateCourse: FC<Props> = ({ EditCourseID }) => {
       })),
       suggestion: content.suggestion,
     }));
+
+
+
+
+
+    
     // prepare our data object
 
     const data = {
