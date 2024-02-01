@@ -1,6 +1,10 @@
 import { style } from "@/app/styles/styels";
-import { useGetBannerQuery } from "@/redux/features/layout/layout.Api";
+import {
+  useEditLayoutMutation,
+  useGetBannerQuery,
+} from "@/redux/features/layout/layout.Api";
 import React, { useState, FC, useEffect } from "react";
+import toast from "react-hot-toast";
 import { AiOutlineCamera } from "react-icons/ai";
 
 type Props = {};
@@ -12,7 +16,7 @@ const HeroCustomize = (props: Props) => {
   const { data, isLoading } = useGetBannerQuery("Banner", {
     refetchOnMountOrArgChange: true,
   });
-  console.log(title);
+  const [editLayout, { isSuccess, error }] = useEditLayoutMutation({});
 
   useEffect(() => {
     if (data) {
@@ -20,21 +24,38 @@ const HeroCustomize = (props: Props) => {
       setSubTitle(data?.layout[0]?.banner?.subTitle);
       setImage(data?.layout[0]?.banner?.image?.url);
     }
-  }, [data]);
+    if (isSuccess) {
+      toast.success("Banner updated successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [data, isLoading, error]);
 
- 
   const handleUpdate = (e: any) => {
     const file = e.target.files?.[0];
-    if(file){
-         const reader = new FileReader();  
-         reader.onload=(e:any)=>{
-            if(reader.readyState===2){
-                setImage(e.target.result as string);
-            }
-            }
-         }
-         
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        if (reader.readyState === 2) {
+          setImage(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
     }
+  };
+
+  const handleSubmit = () => {
+    editLayout({
+      type: "Banner",
+      title,
+      subTitle,
+      image,
+    });
+  };
 
   return (
     <div className="mt-[200px]">
@@ -68,7 +89,6 @@ const HeroCustomize = (props: Props) => {
         </div>
         <div className="1000px:w-[55%]  ml-10 flex flex-col items-center ">
           <textarea
-         
             className=" dark:text-white text-[#000000c7]  bg-transparent   outline-none focus:border-none text-[40px] font-Josefin font-[500] leading-[45px] resize-none "
             cols={30}
             rows={2}
@@ -86,7 +106,7 @@ const HeroCustomize = (props: Props) => {
           <br />
 
           <div className="h-full w-full ">
-            <button className={`${style.button} !w-[150px]`}>Save</button>
+            <button onClick={()=>handleSubmit()} className={`${style.button} !w-[150px]`}>Save</button>
           </div>
         </div>
       </div>
