@@ -8,10 +8,19 @@ const layOutApi=apiSlice.injectEndpoints({
                 method:"GET",
                 credentials:"include" as const
         })
+        }),
+        editLayout:builder.mutation({
+            query:({type,image,title,subTitle,faq ,categories})=>({
+                url:"edit-layout",
+                method:"PUT",
+                body:{type, image, title, subTitle, faq, categories},
+                credentials:"include" as const
         })
+    })
+
     })
 })
 
 
-export const {useGetBannerQuery}=layOutApi;
+export const {useGetBannerQuery,useEditLayoutMutation}=layOutApi;
 
