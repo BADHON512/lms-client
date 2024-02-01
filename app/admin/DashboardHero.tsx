@@ -1,5 +1,5 @@
 "use client";
-import React, { FC,useEffect,useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import DashboardHeader from "./DashboardHeader";
 import CreateCourse from "../components/admin/createCourse/CreateCourse";
 import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
@@ -7,6 +7,7 @@ import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
 import ManageTeam from "../components/admin/ManageTeam/ManageTeam";
 import GetAllUsers from "../components/admin/users/GetAllUsers";
 import EditCourse from "../components/admin/createCourse/EditCourse/EditCourse";
+import HeroCustomize from "../components/admin/Hero/HeroCustomize";
 
 type Props = {
   select: number;
@@ -14,8 +15,7 @@ type Props = {
 };
 
 const DashboardHero: FC<Props> = ({ select, setSelect }) => {
-
-  const [EditCourseID, setEditCourseID] = useState<string>('')
+  const [EditCourseID, setEditCourseID] = useState<string>("");
 
   return (
     <div className="min-h-screen">
@@ -23,10 +23,13 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       {select === 2 && <GetAllUsers />}
       {select === 4 && <CreateCourse />}
 
-      {select === 5 && <AllCourse  setSelect={setSelect} setEditCourseID={setEditCourseID}/>}
+      {select === 5 && (
+        <AllCourse setSelect={setSelect} setEditCourseID={setEditCourseID} />
+      )}
 
+      {select === 6 && <HeroCustomize />}
       {select === 9 && <ManageTeam />}
-      {select === 88 && <EditCourse EditCourseID={EditCourseID}/> }
+      {select === 88 && <EditCourse EditCourseID={EditCourseID} />}
     </div>
   );
 };
