@@ -13,10 +13,11 @@ const HeroCustomize = (props: Props) => {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
-  const { data, isLoading } = useGetBannerQuery("Banner", {
+  const { data, isLoading,refetch } = useGetBannerQuery("Banner", {
     refetchOnMountOrArgChange: true,
   });
   const [editLayout, { isSuccess, error }] = useEditLayoutMutation({});
+  console.log(image)
 
   useEffect(() => {
     if (data) {
@@ -33,7 +34,7 @@ const HeroCustomize = (props: Props) => {
         toast.error(errorMessage.data.message);
       }
     }
-  }, [data, isLoading, error]);
+  }, [data, isLoading,isSuccess, error]);
 
   const handleUpdate = (e: any) => {
     const file = e.target.files?.[0];
@@ -55,6 +56,7 @@ const HeroCustomize = (props: Props) => {
       subTitle,
       image,
     });
+    refetch()
   };
 
   return (
