@@ -8,6 +8,7 @@ import ManageTeam from "../components/admin/ManageTeam/ManageTeam";
 import GetAllUsers from "../components/admin/users/GetAllUsers";
 import EditCourse from "../components/admin/createCourse/EditCourse/EditCourse";
 import HeroCustomize from "../components/admin/Hero/HeroCustomize";
+import EditFaQ from "../components/admin/Faq/EditFaQ";
 
 type Props = {
   select: number;
@@ -28,6 +29,7 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       )}
 
       {select === 6 && <HeroCustomize />}
+      {select === 7 && <EditFaQ />}
       {select === 9 && <ManageTeam />}
       {select === 88 && <EditCourse EditCourseID={EditCourseID} />}
     </div>
