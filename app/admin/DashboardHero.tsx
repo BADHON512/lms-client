@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import DashboardHeader from "./DashboardHeader";
 import CreateCourse from "../components/admin/createCourse/CreateCourse";
 import AllCourse from "../components/admin/createCourse/allCourse/AllCourse";
@@ -10,6 +10,7 @@ import EditCourse from "../components/admin/createCourse/EditCourse/EditCourse";
 import HeroCustomize from "../components/admin/Hero/HeroCustomize";
 import EditFaQ from "../components/admin/Faq/EditFaQ";
 import EditCategories from "../components/admin/categorise/EditCategorise";
+import CourseAnalysis from "../components/admin/CourseAnalysis/CourseAnalysis";
 
 type Props = {
   select: number;
@@ -33,6 +34,7 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       {select === 7 && <EditFaQ />}
       {select === 8 && <EditCategories />}
       {select === 9 && <ManageTeam />}
+      {select === 10 && <CourseAnalysis />}
       {select === 88 && <EditCourse EditCourseID={EditCourseID} />}
     </div>
   );

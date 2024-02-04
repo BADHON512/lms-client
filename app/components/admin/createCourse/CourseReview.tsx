@@ -5,7 +5,7 @@ import Ratings from "@/app/utils/Ratings";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {
-  edit: boolean;
+  edit?: boolean;
   Active: number;
   setActive: (active: number) => void;
   courseData: any;

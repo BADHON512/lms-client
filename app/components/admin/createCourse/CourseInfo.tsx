@@ -1,7 +1,7 @@
-
-'use client'
+"use client";
 import { style } from "@/app/styles/styels";
-import React, { FC, useState } from "react";
+import { useGetBannerQuery } from "@/redux/features/layout/layout.Api";
+import React, { FC, useEffect, useState } from "react";
 
 type Props = {
   courseInfo: any;
@@ -17,6 +17,7 @@ const CourseInfo: FC<Props> = ({
   Active,
 }) => {
   const [Dragging, setDragging] = useState(false);
+  const [Categories, setCategories] = useState([]);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setActive(Active + 1);
@@ -47,19 +48,28 @@ const CourseInfo: FC<Props> = ({
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files?.[0];
-  
+
     if (file) {
       const fileReader = new FileReader();
       fileReader.onload = () => {
         if (fileReader.readyState === 2) {
-          console.log('fileReader.result', fileReader.result)
+          console.log("fileReader.result", fileReader.result);
           setCourseInfo({ ...courseInfo, thumbnail: fileReader.result });
         }
       };
       fileReader.readAsDataURL(file); // Move this line here
     }
   };
-  
+
+  const { data, isLoading } = useGetBannerQuery("Category");
+  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      setCategories(data.layout[0].categories);
+    }
+  }, [data]);
+
   return (
     <div className="w-[80%] m-auto mt-24">
       <form action="" onSubmit={handleSubmit} className={`${style.label}`}>
@@ -102,7 +112,7 @@ const CourseInfo: FC<Props> = ({
             <label htmlFor="">Course Price</label>
 
             <input
-              type="name"
+              type="number"
               name=""
               required
               value={courseInfo.price}
@@ -119,7 +129,7 @@ const CourseInfo: FC<Props> = ({
             <label htmlFor="">Estimated Price</label>
 
             <input
-              type="name"
+              type="number"
               name=""
               required
               value={courseInfo.estimatePrice}
@@ -134,21 +144,44 @@ const CourseInfo: FC<Props> = ({
         </div>
 
         <br />
-        <div>
-          <label htmlFor="">Course Tags</label>
+        <div className="w-full flex justify-between">
+          <div className="w-[45%]">
+            <label htmlFor="">Course Tags</label>
 
-          <input
-            type="name"
-            name=""
-            required
-            value={courseInfo.tags}
-            onChange={(e) =>
-              setCourseInfo({ ...courseInfo, tags: e.target.value })
-            }
-            id="name"
-            placeholder="MERN stack lms platforms with next 13  "
-            className={style.input}
-          />
+            <input
+              type="name"
+              name=""
+              required
+              value={courseInfo.tags}
+              onChange={(e) =>
+                setCourseInfo({ ...courseInfo, tags: e.target.value })
+              }
+              id="name"
+              placeholder="MERN stack lms platforms with next 13  "
+              className={style.input}
+            />
+          </div>
+          <br />
+          <div className="w-[45%]">
+            <label htmlFor="">Course categories</label>
+
+            <select
+              required
+              value={courseInfo.categories}
+              onChange={(e) =>
+                setCourseInfo({ ...courseInfo, categories: e.target.value })
+              }
+              id="name"
+              placeholder=" Write your tags  "
+              className={style.input}
+            >
+              {Categories.map((item: any, i: number) => (
+                <option className="bg-gray-500 " key={i} value={item.title}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <br />
         <div className="w-full flex justify-between">
@@ -204,9 +237,9 @@ const CourseInfo: FC<Props> = ({
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
           >
-            {courseInfo.thumbnail ?(
+            {courseInfo.thumbnail ? (
               <img
-                src={courseInfo?.thumbnail?.url||courseInfo.thumbnail}
+                src={courseInfo?.thumbnail?.url || courseInfo.thumbnail}
                 alt="dd"
                 className="max-h-full w-full object-cover"
               />
@@ -219,7 +252,11 @@ const CourseInfo: FC<Props> = ({
         </div>
         <br />
         <div className="w-full flex items-center justify-end">
-          <input type="submit" value={'Next'} className="w-full 800px:w-[180px] h-[40px] bg-blue-400  text-center text-white mt-8 cursor-pointer"  />
+          <input
+            type="submit"
+            value={"Next"}
+            className="w-full 800px:w-[180px] h-[40px] bg-blue-400  text-center text-white mt-8 cursor-pointer"
+          />
         </div>
         <br />
         <br />

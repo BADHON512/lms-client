@@ -33,6 +33,7 @@ const CreateCourse: FC<Props> = ({}) => {
     description: "",
     price: "",
     estimatePrice: "",
+    categories:'',
     tags: "",
     level: "",
     demoUrl: "",
@@ -49,6 +50,7 @@ const CreateCourse: FC<Props> = ({}) => {
       title: "",
       description: "",
       videoSection: "",
+      videoLength:'',
       link: [
         {
           title: "",
@@ -72,6 +74,7 @@ const CreateCourse: FC<Props> = ({}) => {
     const formattedCourseContentData = courseContentData.map((content) => ({
       videoUrl: content.videoUrl,
       title: content.title,
+      videoLength: content.videoLength,
       description: content.description,
       videoSection: content.videoSection,
       link: content.link?.map((links) => ({
@@ -91,6 +94,7 @@ const CreateCourse: FC<Props> = ({}) => {
       level: courseInfo.level,
       demoUrl: courseInfo.demoUrl,
       thumbnail: courseInfo.thumbnail,
+      categories:courseInfo.categories,
       benefits: formattedBenefits,
       totalVideos: courseContentData.length,
       prerequisites: formattedPrerequisites,
@@ -101,9 +105,11 @@ const CreateCourse: FC<Props> = ({}) => {
   console.log("CourseData", courseData);
   const handelCourseCreate =async (e:any) => { 
      const data=courseData
-     if(!isLoading){
-      await createCourse(data)
-     }
+    //  if(!isLoading){
+    //   await createCourse(data)
+    //  }
+
+    console.log(data)
    }
 
   return (

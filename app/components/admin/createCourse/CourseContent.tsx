@@ -230,6 +230,22 @@ const CourseContent: FC<Props> = ({
                         }}
                       />
                     </div>
+                    <div className="my-8">
+                      <label htmlFor="" className={`${style.label}`}>
+                        Video Length
+                      </label>
+                      <textarea
+                        cols={30}
+                        rows={8}
+                        className={`${style.input}`}
+                        value={item.videoLength}
+                        onChange={(e) => {
+                          const updateData = [...courseContentData];
+                          updateData[index].videoLength = e.target.value;
+                          setCourseContentData(updateData);
+                        }}
+                      />
+                    </div>
 
                     <div className="my-8">
                       <label htmlFor="" className={`${style.label}`}>
