@@ -17,20 +17,24 @@ type Props = {};
 const CourseAnalysis = (props: Props) => {
   const { data, isLoading, error } = useGetCourseAnalyticsQuery({});
   console.log(data);
-  const analyticsData = [
-    { name: "jun 2023", uv: 3 },
-    { name: "Feb 2023", uv: 6 },
-    { name: "Mar 2023", uv: 4 },
-    { name: "Apr 2023", uv: 2 },
-    { name: "May 2023", uv: 7 },
-    { name: "Jun 2023", uv: 3 },
-    { name: "Jul 2023", uv: 9 },
-    { name: "Aug 2023", uv: 2 },
-    { name: "Sep 2023", uv: 1 },
-    { name: "Oct 2023", uv: 5 },
-    { name: "Nov 2023", uv: 2 },
-    { name: "Dec 2023", uv: 2 },
+  const analyticsData:any = [
+    // { name: "jun 2023", uv: 3 },
+    // { name: "Feb 2023", uv: 6 },
+    // { name: "Mar 2023", uv: 4 },
+    // { name: "Apr 2023", uv: 2 },
+    // { name: "May 2023", uv: 7 },
+    // { name: "Jun 2023", uv: 3 },
+    // { name: "Jul 2023", uv: 9 },
+    // { name: "Aug 2023", uv: 2 },
+    // { name: "Sep 2023", uv: 1 },
+    // { name: "Oct 2023", uv: 5 },
+    // { name: "Nov 2023", uv: 2 },
+    // { name: "Dec 2023", uv: 2 },
   ];
+
+  data&& data?.course?.last12Months?.forEach((item:any,index:number)=>(
+    analyticsData.push({name:item.month, uv:item.count})
+  ))
 
   const minimumLength = 0;
 

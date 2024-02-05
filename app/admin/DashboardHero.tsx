@@ -11,6 +11,9 @@ import HeroCustomize from "../components/admin/Hero/HeroCustomize";
 import EditFaQ from "../components/admin/Faq/EditFaQ";
 import EditCategories from "../components/admin/categorise/EditCategorise";
 import CourseAnalysis from "../components/admin/CourseAnalysis/CourseAnalysis";
+import UserAnalytics from "../components/admin/userAnalytics/UserAnalytics";
+import OrderAnalytics from "../components/admin/orderAnalytics/OrderAnalytics";
+import Dashboard from "../components/admin/Dashboard/Dashboard";
 
 type Props = {
   select: number;
@@ -23,6 +26,7 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
   return (
     <div className="min-h-screen">
       <DashboardHeader />
+      {select === 1 && <Dashboard />}
       {select === 2 && <GetAllUsers />}
       {select === 4 && <CreateCourse />}
 
@@ -35,6 +39,8 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       {select === 8 && <EditCategories />}
       {select === 9 && <ManageTeam />}
       {select === 10 && <CourseAnalysis />}
+      {select === 11 && <OrderAnalytics />}
+      {select === 12 && <UserAnalytics />}
       {select === 88 && <EditCourse EditCourseID={EditCourseID} />}
     </div>
   );
