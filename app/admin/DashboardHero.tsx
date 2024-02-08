@@ -14,6 +14,7 @@ import CourseAnalysis from "../components/admin/CourseAnalysis/CourseAnalysis";
 import UserAnalytics from "../components/admin/userAnalytics/UserAnalytics";
 import OrderAnalytics from "../components/admin/orderAnalytics/OrderAnalytics";
 import Dashboard from "../components/admin/Dashboard/Dashboard";
+import AllInvoices from "../components/admin/Allinvoices/Allinvoices";
 
 type Props = {
   select: number;
@@ -28,6 +29,7 @@ const DashboardHero: FC<Props> = ({ select, setSelect }) => {
       <DashboardHeader />
       {select === 1 && <Dashboard />}
       {select === 2 && <GetAllUsers />}
+      {select === 3 && <AllInvoices />}
       {select === 4 && <CreateCourse />}
 
       {select === 5 && (

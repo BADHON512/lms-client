@@ -16,7 +16,7 @@ import {
 type Props = {
     DashBoard?: boolean;
   };
-const OrderAnalytics = (props: Props) => {
+const OrderAnalytics = ({DashBoard}: Props) => {
   const analyticsData:any= [
     // { name: "Page A", uv: 590 },
     // { name: "Page B", uv: 868 },
@@ -38,7 +38,7 @@ const OrderAnalytics = (props: Props) => {
     <div className=" ">
       <div>
         <h1 className="text-center text-[28px] my-[20px]">Order analytics</h1>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={DashBoard? 270: 400}>
           <ComposedChart
             data={analyticsData}
             margin={{ top: 20, right: 20, bottom: 20, left: 20 }}

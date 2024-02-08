@@ -27,6 +27,7 @@ const HeroCustomize = (props: Props) => {
     }
     if (isSuccess) {
       toast.success("Banner updated successfully");
+       refetch()
     }
     if (error) {
       if ("data" in error) {
@@ -56,7 +57,7 @@ const HeroCustomize = (props: Props) => {
       subTitle,
       image,
     });
-    refetch()
+   
   };
 
   return (

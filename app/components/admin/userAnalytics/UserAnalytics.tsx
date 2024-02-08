@@ -46,10 +46,10 @@ const UserAnalytics = ({ DashBoard }: Props) => {
           className={`${
             !DashBoard
               ? "mt-[50px]"
-              : "mt-[50px] dark:text-white shadow-sm pb-5 rounded-sm"
+              : "mt-[20px] dark:text-white shadow-sm pb-5 rounded-sm"
           }`}
         >
-          <div className={`${DashBoard ? "!ml-8 mb-5" : ""}`}>
+          <div className={`${DashBoard ? "!ml-3 mb-1" : ""}`}>
             <h1
               className={`${style.title} ${
                 DashBoard && "!text-[20px] px-5 !text-start"
@@ -65,7 +65,7 @@ const UserAnalytics = ({ DashBoard }: Props) => {
             )}
             <div
               className={` w-full ${
-                DashBoard ? "h-[30vh] " : "h-screen"
+                DashBoard ? "h-[20vh] " : "h-[60vh]"
               } flex items-center justify-center`}
             >
               <ResponsiveContainer

@@ -8,19 +8,19 @@ const DashboardHeader: FC<Props> = ({}) => {
   const [Open, setOpen] = useState(false);
   return (
     <div className="min-h-[10vh]">
-      <div className="w-full flex items-center justify-end p-6 fixed top-0 right-0 ">
+      <div className="w-full flex items-center justify-end p-6 fixed z-[999999] top-0 right-0 ">
         <ThemeSwitcher />
         <div
           onClick={() => setOpen(!Open)}
           className="relative cursor-pointer m-2 "
         >
           <IoMdNotificationsOutline className="text-2xl cursor-pointer dark:text-white text-black" />
-          <span className="absolute -top-2 -right-2 bg-blue-300 rounded-full w-[20px] text-[12px] flex items-center justify-center text-white">
-            3
+          <span className="absolute -top-2 -right-2 bg-blue-300 rounded-full w-[20px] text-[12px] flex items-center justify-center dark:text-white text-black">
+            4
           </span>
         </div>
         {Open && (
-          <div className="w-[350px] min-h-[50vh] dark:bg-[#111C43] bg-white shadow-xl absolute top-16 z-10 rounded p-5">
+          <div className="w-[350px] min-h-[50vh] dark:bg-[#111C43] bg-white shadow-xl absolute top-16  rounded p-5">
             <h1 className="text-center text-[20px] font-Poppins text-black dark:text-white">
               Notification
             </h1>

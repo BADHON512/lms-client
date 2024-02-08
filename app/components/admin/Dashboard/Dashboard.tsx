@@ -7,8 +7,8 @@ import OrderAnalytics from "../orderAnalytics/OrderAnalytics";
 import AllInvoices from "../Allinvoices/Allinvoices";
 
 type Props = {
-  value: number;
-  open: boolean;
+  value?: number;
+  open?: boolean;
 };
 
 const CircularProgressWithLabel: FC<Props> = ({ value, open }) => {
@@ -47,8 +47,8 @@ const Dashboard = ({ open }: Props) => {
           <UserAnalytics DashBoard={true} />
         </div>
 
-        <div className="pt-[80px] pr-8">
-          <div className="w-full dark:bg-[#111C43] rounded-sm shadow p-5">
+        <div className="pt-[20px] pr-8">
+          <div className="w-full dark:bg-[#111C43] rounded-sm shadow p-2">
             <div className="flex items-center justify-between">
               <div className="">
                 <BiBorderLeft className="dark:text-[#45CBA0] text-black text-[30px]" />
@@ -67,8 +67,8 @@ const Dashboard = ({ open }: Props) => {
             </div>
           </div>
 
-          <div className="w-full dark:bg-[#111C43] rounded-sm shadow my-8">
-            <div className="flex items-center p-5 justify-between">
+          <div className="w-full dark:bg-[#111C43] rounded-sm shadow my-4">
+            <div className="flex items-center p-2 justify-between">
               <div className="">
                 <PiUsersFourLight className="dark:text-[#45CBA0] text-black text-[30px]" />
                 <h1 className="py-2 font-Poppins dark:text-white text-black text-[20px]">
@@ -86,12 +86,12 @@ const Dashboard = ({ open }: Props) => {
           </div>
         </div>
       </div>
-      <div className=" grid grid-cols-[65%,35%]  mt-[20px]">
-        <div className="dark:bg-[#111c43] w-[94%] mt-[30px]  h-[40vh] shadow m-auto">
+      <div className=" grid grid-cols-[60%,40%]  mt-[10px]">
+        <div className="dark:bg-[#111c43] w-[94%] mt-[15px]  min-h-[40vh] shadow m-auto">
              <OrderAnalytics DashBoard={true}/>
         </div>
 
-        <div className="p-5">
+        <div className="">
             <h3 className="dark:text-white text-black text-[20px] font-Poppins font-[400] pb-3">Recent Transaction</h3>
 
             <AllInvoices DashBoard={true}/>

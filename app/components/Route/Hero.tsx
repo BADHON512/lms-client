@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
+import { useGetBannerQuery } from "@/redux/features/layout/layout.Api";
 
 type Props = {};
 
 const Hero: FC<Props> = ({}) => {
+  const { data, isLoading,refetch } = useGetBannerQuery("Banner",);
   return (
     <div className="w-full min-h-screen p-5 gap-x-10 1000px:flex items-center dark:bg-[#000000] bg-white">
       <div className="flex justify-center ">
@@ -13,20 +15,21 @@ const Hero: FC<Props> = ({}) => {
 
           <Image
             alt="img not found"
-            src={require("../../../public/assets/banner1.png")}
-            className="h-[auto] w-[50vh] rounded-full   object-contain absolute  "
+            src={data?.layout[0]?.banner?.image?.url}
+            width={400}
+            height={400}
+            className="h-[50vh] w-[50vh] rounded-full   object-contain absolute  "
           />
         </div>
       </div>
 
       <div className="1000px:w-[55%]  ml-10 flex flex-col items-center ">
         <h2 className=" dark:text-white text-[#000000c7] text-[40px] font-Josefin font-[500] leading-[45px]">
-          Improve Your Online Learning Experience Better Instantly
+          {data?.layout[0]?.banner?.title}
         </h2>
         <br />
         <p className="dark:text-white text-[#000000c7]  font-Josefin font-[600] ">
-          We have 40k Online courses & 500k Online registered student. Find your
-          desired Courses from them.
+        {data?.layout[0]?.banner?.subTitle}
         </p>
         <br />
         <div className="w-full flex items-center relative">
