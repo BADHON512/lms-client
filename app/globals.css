@@ -98,6 +98,12 @@ body {
   }
   100%{transform: rotate(360deg);}
 }
+.text-gradient {
+  background-image: linear-gradient(to right, #34d31f, #1d38d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent
+}
 
 ::-webkit-scrollbar{
   width: 5px;
