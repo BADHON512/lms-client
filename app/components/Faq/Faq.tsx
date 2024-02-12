@@ -34,19 +34,19 @@ const Faq = (props: Props) => {
                 className={`${index}  border-[gray] border-t w-full`}>
                     <div className=" w-full flex gap-x-2 items-center justify-between">
                         <div>
-                        <h1  onClick={()=>toggleHandle(faq._id)} className='text-[20px] font-Poppins py-6 cursor-pointer'>{faq.question}</h1>
+                        <h1  onClick={()=>toggleHandle(faq._id)} className='text-[20px] font-Poppins py-6 cursor-pointer dark:text-white text-black'>{faq.question}</h1>
 
                       {
                         faq.active&&(
-                          <h1 className='text-[20px] font-Poppins py-6'>{faq.answer}</h1> 
+                          <h1 className='text-[20px] font-Poppins py-6 dark:text-white text-black'>{faq.answer}</h1> 
                         )
                       }
                         
                         </div>
                       <div className='flex-shrink-0'>
                       {
-                          faq.active?(  < HiMinus size={30} className="h-6 w-6 cursor-pointer"  onClick={()=>toggleHandle(faq._id)} /> ):(
-                            < HiPlus size={30} className="h-6 w-6 cursor-pointer"  onClick={()=>toggleHandle(faq._id)} />
+                          faq.active?(  < HiMinus size={30} className="h-6 w-6 cursor-pointer dark:text-white text-black"  onClick={()=>toggleHandle(faq._id)} /> ):(
+                            < HiPlus size={30} className="h-6 w-6 cursor-pointer dark:text-white text-black"  onClick={()=>toggleHandle(faq._id)} />
                           )
                         }
                       </div>

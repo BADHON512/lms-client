@@ -34,16 +34,29 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    courseUpdateById: builder.mutation({  
-      query: ({id,data}) => ({
+    courseUpdateById: builder.mutation({
+      query: ({ id, data }) => ({
         url: `course-edit/${id}`,
         method: "PUT",
         body: data,
         credentials: "include" as const,
-
-      })
-    })
+      }),
+    }),
+    getCourseDetails: builder.query({
+      query: (id) => ({
+        url: `get-single-course/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
-export const { useCreateCourseMutation, useGetAllCoursesQuery,useDeleteCourseByIdMutation,useCourseUpdateByIdMutation,useGetAllCoursesForUsersQuery } = courseApi;
+export const {
+  useCreateCourseMutation,
+  useGetAllCoursesQuery,
+  useDeleteCourseByIdMutation,
+  useCourseUpdateByIdMutation,
+  useGetAllCoursesForUsersQuery,
+  useGetCourseDetailsQuery,
+} = courseApi;
