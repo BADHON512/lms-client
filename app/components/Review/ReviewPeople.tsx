@@ -89,7 +89,7 @@ const ReviewPeople = (props: Props) => {
             className=" w-full h-max bg-orange-800 800px:w-[40%]  dark:bg-slate-500 dark:bg-opacity-[0.20] border border-[#00000028] dark:border-[#ffffff1d] backdrop-blur shadow-[bg-slate-700] rounded-lg p-3 shadow-inline "
             key={index}
           >
-            <div className="flex justify-between">
+            <div className="flex justify-center w-full items-center 400px:justify-between  flex-col 400px:flex-row">
               <div className="flex gap-x-2">
                 <Image
                   src={review.avatar}

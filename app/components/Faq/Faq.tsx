@@ -1,7 +1,7 @@
 import { useGetBannerQuery } from '@/redux/features/layout/layout.Api'
 import React,{useState,useEffect}from 'react'
 import { AiOutlinePause } from 'react-icons/ai'
-import { HiPause, HiPlus } from 'react-icons/hi'
+import { HiMinus, HiPause, HiPlus } from 'react-icons/hi'
 
 type Props = {}
 
@@ -10,12 +10,17 @@ const Faq = (props: Props) => {
     const {data}=useGetBannerQuery('FAQ')
     
   const [FAQ, setFAQ] = useState<any[]>([])
+  console.log(FAQ)
 
   useEffect(() => {
     if (data) {
       setFAQ(data.layout[0].faq)
     }
   },[data] )
+
+  const toggleHandle=(id:any)=>{
+  setFAQ((pre)=>pre.map((faq)=>faq._id===id?{...faq,active:!faq.active}:faq))
+  }
   return (
     <div className='w-[90%] m-auto'>
         <br />
@@ -29,12 +34,22 @@ const Faq = (props: Props) => {
                 className={`${index}  border-[gray] border-t w-full`}>
                     <div className=" w-full flex gap-x-2 items-center justify-between">
                         <div>
-                        <h1 className='text-[20px] font-Poppins py-6'>{faq.question}</h1>
+                        <h1  onClick={()=>toggleHandle(faq._id)} className='text-[20px] font-Poppins py-6 cursor-pointer'>{faq.question}</h1>
 
-                        <h1 className='text-[20px] font-Poppins py-6'>answer {faq.answer}</h1> 
+                      {
+                        faq.active&&(
+                          <h1 className='text-[20px] font-Poppins py-6'>{faq.answer}</h1> 
+                        )
+                      }
                         
                         </div>
-                         < HiPlus size={30}/>
+                      <div className='flex-shrink-0'>
+                      {
+                          faq.active?(  < HiMinus size={30} className="h-6 w-6 cursor-pointer"  onClick={()=>toggleHandle(faq._id)} /> ):(
+                            < HiPlus size={30} className="h-6 w-6 cursor-pointer"  onClick={()=>toggleHandle(faq._id)} />
+                          )
+                        }
+                      </div>
                     </div>
                 </div>
             ))
