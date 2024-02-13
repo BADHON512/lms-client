@@ -105,9 +105,9 @@ const CreateCourse: FC<Props> = ({}) => {
   console.log("CourseData", courseData);
   const handelCourseCreate =async (e:any) => { 
      const data=courseData
-    //  if(!isLoading){
-    //   await createCourse(data)
-    //  }
+     if(!isLoading){
+      await createCourse(data)
+     }
 
     console.log(data)
    }

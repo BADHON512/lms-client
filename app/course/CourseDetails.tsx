@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import Ratings from "../utils/Ratings";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { format } from "timeago.js";
+import CoursePlayer from "../components/admin/createCourse/CoursePlayer";
+import Link from "next/link";
+import { style } from "../styles/styels";
 
 type Props = {
   data: any;
@@ -127,7 +130,7 @@ const CourseDetails = ({ data }: Props) => {
                       </h1>
                     </div>
                     <br />
-                    {(data?.review&& [...data.reviews].reverse()).map((item:any,index:number)=>(
+                    {(data?.review&& [...data.reviews].reverse())?.map((item:any,index:number)=>(
                         <div className="w-full pb-4" key={index}>
                             <div className="flex">
                                 <div className="w-[50px] h-[50px]">
@@ -157,6 +160,28 @@ const CourseDetails = ({ data }: Props) => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="w-full 800px:w-[45%] relative">
+            <div className="sticky top-[100px] left-0 z-50 w-full">
+                < CoursePlayer videoUrl={data?.demoUrl} title={data?.title}/>
+                <div className="flex items-center">
+                  <h1 className="pt-5 text-[25px]  dark:text-white text-black">
+                    {data.price ===0 ?'Free': data.price + '$'}
+                  </h1>
+                  <h2 className="pl-3 text-[20px] mt-2 line-through opacity-80 dark:text-white text-black">{data.estimatePrice}</h2>
+                  <h2 className="pl-3 text-[20px] mt-2 dark:text-white text-black">{disCountPercentagePrice}% off</h2>
+                </div>
+                <div className="flex items-center">
+                  {isPurchased?(
+                    <Link href={`/course-access/${data._id}`} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}>Enter to Course</Link>
+                  ):(        <div onClick={handleOrder} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}> Buy Now {data.price + '$'}</div>)}
+                </div>
+                <br />
+                <p className=" pb-1 text-black dark:text-white">Source code included</p>
+                <p className=" pb-1 text-black dark:text-white">Full lifetime access</p>
+                <p className=" pb-1 text-black dark:text-white">Certificate of completion</p>
+                <p className=" pb-3 800px:pb-1 text-black dark:text-white ">Premium Support</p>
             </div>
           </div>
         </div>
