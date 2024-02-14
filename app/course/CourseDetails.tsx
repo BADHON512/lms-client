@@ -6,6 +6,7 @@ import { format } from "timeago.js";
 import CoursePlayer from "../components/admin/createCourse/CoursePlayer";
 import Link from "next/link";
 import { style } from "../styles/styels";
+import CourseContentList from "./CourseContentList";
 
 type Props = {
   data: any;
@@ -103,7 +104,7 @@ const CourseDetails = ({ data }: Props) => {
                     Course Overview
                   </h1>
 
-                  {/* CourseContentList */}
+          <CourseContentList data={data.course}/>
                 </div>
 
                 <br />
