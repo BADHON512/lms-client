@@ -104,7 +104,7 @@ const CourseDetails = ({ data }: Props) => {
                     Course Overview
                   </h1>
 
-          <CourseContentList data={data.course}/>
+          <CourseContentList data={data.courseData} isDemo={true}/>
                 </div>
 
                 <br />
