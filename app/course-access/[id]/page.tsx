@@ -34,7 +34,7 @@ const Page = ({ params }: Props) => {
  {
     isLoading ? <Loader/> : (
         <div>
-            <CourseComponent id={id}/>
+            <CourseComponent id={id} data={data}/>
         </div>
     )
 }
