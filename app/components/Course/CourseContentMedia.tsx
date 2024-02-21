@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CoursePlayer from '../admin/createCourse/CoursePlayer'
 import { style } from '@/app/styles/styels'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
+import { AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar } from 'react-icons/ai'
 import Loader from '../Loader/Loader'
 import { useGetCourseContentQuery } from '@/redux/features/courses/coursesApi'
 
@@ -21,6 +21,8 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData }:
     const [activeBar, setActiveBAr] = React.useState(0)
     const [comment, setComment] = React.useState('')
     const { isLoading } = useGetCourseContentQuery(id)
+    const [rating, setRating] = useState<number>()
+    const [review, setReview] = useState('')
 
     return (
         <>
@@ -103,7 +105,45 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData }:
                                             {/* comment reply */}
                                         </div>
                                     </div>
+
+
                                 </>
+                            )
+                        }
+                        {
+                            activeBar === 3 && (
+                                <div className="w-full">
+                                    <div className="flex w-full">
+                                        <Image src={userData && userData?.user?.avatar ? userData?.user?.avatar?.url : Avatar} alt='img not found' height={100} width={100}
+                                            className='h-[50px] w-[50px] rounded-full object-cover' />
+                                        <div className="w-full">
+                                            <h1 className='pl-3 text-[20px] font-[500] dark:text-white text-black'> Give a Rating <span className='text-red-600'>*</span></h1>
+
+                                            <div className="flex w-full ml-2 pb-3">
+                                                {[1, 2, 3, 4, 5].map((i) => (
+                                                    rating >= i ? (
+                                                        <AiFillStar key={i} className='mr-1 cursor-pointer'
+                                                            color='rgb(246,186,0)'
+                                                            size={25}
+                                                            onClick={() => setRating(i)} />
+                                                    ) : (<AiOutlineStar key={i} className='mr-1 cursor-pointer'
+                                                        color='rgb(246,186,0)'
+                                                        size={25}
+                                                        onClick={() => setRating(i)} />)
+                                                ))
+
+                                                }
+                                            </div>
+                                            <textarea name="" id="" cols={30} rows={5} value={review} onChange={(e) => setReview(e.target.value)}
+                                                className='outline-none bg-transparent  border border-[#ffffff57] 800px:w-full p-2 rounded  w-[90%] 800px:text-[18px] font-Poppins' placeholder='Write your comment here...'></textarea>
+                                            <div className="w-full flex justify-end">
+                                                <div className={`${style.button} !w-[120px] !h-[40px] text-[18px] mt-5`}>
+                                                    Submit
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             )
                         }
                     </div>
