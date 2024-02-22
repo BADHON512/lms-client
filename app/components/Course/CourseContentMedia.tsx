@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CoursePlayer from '../admin/createCourse/CoursePlayer'
 import { style } from '@/app/styles/styels'
 import { AiFillStar, AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar } from 'react-icons/ai'
 import Loader from '../Loader/Loader'
-import { useGetCourseContentQuery } from '@/redux/features/courses/coursesApi'
+import { useAddNewQuestionMutation, useGetCourseContentQuery } from '@/redux/features/courses/coursesApi'
 
 import Avatar from '../../../public/assets/avatar.jpg'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 type Props = {
     data: any
@@ -14,15 +15,43 @@ type Props = {
     activeVideo: number,
     setActiveVideo: (activeVideo: number) => void
     userData: any
+    refetch:any
 }
 
-const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData }: Props) => {
+const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData,refetch }: Props) => {
     console.log(userData)
     const [activeBar, setActiveBAr] = React.useState(0)
     const [comment, setComment] = React.useState('')
     const { isLoading } = useGetCourseContentQuery(id)
     const [rating, setRating] = useState<number>()
     const [review, setReview] = useState('')
+    const [addNewQuestion,{error,isSuccess,isLoading:QuestionLoading}]=useAddNewQuestionMutation()
+
+
+    const handelCommentSubmit=()=>{
+        console.log('button click subbbbbbbb')
+        if(comment.length===0){
+            toast.error("Question can't empty")
+        }else{
+            addNewQuestion({courseId:id, contentId:data.content[activeVideo]._id,question:comment})
+        }
+    }
+  
+
+    useEffect(()=>{
+        if(isSuccess){
+         setComment(' ')
+         refetch()
+         toast.success('Question added successfully')
+        }
+
+        if(error){
+            if('data'in error){
+                const eme=error as any
+                toast.error(eme.data.message)
+            }
+        }
+    },[isSuccess, error])
 
     return (
         <>
@@ -93,7 +122,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData }:
 
                                     </div>
                                     <div className="w-full flex justify-end">
-                                        <div className={`${style.button} !w-[120px] !h-[40px] text-[18px] mt-5`}>
+                                        <div className={`${style.button} !w-[120px] !h-[40px] text-[18px] mt-5 ${QuestionLoading&& 'cursor-no-drop'}`} onClick={()=>handelCommentSubmit()}>
                                             Submit
                                         </div>
                                     </div>

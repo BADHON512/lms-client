@@ -12,7 +12,7 @@ type Props = {
 }
 
 const CourseComponent = ({id,data:userData}: Props) => {
-    const {data ,error,isLoading}=useGetCourseContentQuery(id)
+    const {data ,error,isLoading,refetch}=useGetCourseContentQuery(id,{refetchOnMountOrArgChange:true})
     const [open, setOpen] = React.useState(false)
     const [route, setRoute] = React.useState('Login')
     console.log(data)
@@ -34,7 +34,9 @@ const CourseComponent = ({id,data:userData}: Props) => {
           id={id}
           activeVideo={activeVideo}
           setActiveVideo={setActiveVideo}
-          userData={userData}/>
+          userData={userData}
+          refetch={refetch}/>
+          
         </div>
         <div className="hidden 800px:block 800px:col-span-3">
           <CourseContentList
