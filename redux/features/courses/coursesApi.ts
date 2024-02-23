@@ -50,23 +50,29 @@ export const courseApi = apiSlice.injectEndpoints({
       }),
     }),
 
-    getCourseContent:builder.query({
-      query:(id)=>({
-        url:`get-course-content/${id}`,
-        method:"GET",
-        credentials:"include" as const
-      })
-
+    getCourseContent: builder.query({
+      query: (id) => ({
+        url: `get-course-content/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
     }),
-    addNewQuestion:builder.mutation({
-      query:({ question, contentId, courseId})=>({
-        url:'add-question',
-        method:'PUT',
-        body:{contentId,question,courseId},
-        credentials: 'include' as const
-
-      })
-    })
+    addNewQuestion: builder.mutation({
+      query: ({ question, contentId, courseId }) => ({
+        url: "add-question",
+        method: "PUT",
+        body: { contentId, question, courseId },
+        credentials: "include" as const,
+      }),
+    }),
+    questionReply: builder.mutation({
+      query: ({ answer, questionId, courseId, contentId }) => ({
+        url: "add-answer",
+        method: "PUT",
+        body: { answer, questionId, courseId, contentId },
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -78,5 +84,6 @@ export const {
   useGetAllCoursesForUsersQuery,
   useGetCourseDetailsQuery,
   useGetCourseContentQuery,
-  useAddNewQuestionMutation
+  useAddNewQuestionMutation,
+  useQuestionReplyMutation,
 } = courseApi;
