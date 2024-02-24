@@ -28,7 +28,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
     const [rating, setRating] = useState<number>()
     const [review, setReview] = useState('')
     const [addNewQuestion, { error, isSuccess, isLoading: QuestionLoading }] = useAddNewQuestionMutation()
-    const [questionReply,{isLoading:answerLoading,error:questionAnswer}]=useQuestionReplyMutation()
+    const [questionReply,{isLoading:answerLoading,error:questionReplyError,isSuccess:questionReplySuccess}]=useQuestionReplyMutation()
     const [answer, setAnswer] = useState('')
     const [questionId, setQuestionId] = useState('')
 
@@ -49,9 +49,9 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
             refetch()
             toast.success('Question added successfully')
         }
-        if (answerLoading) {
-            setAnswer(' ')
-            setQuestionId('')
+        if (questionReplySuccess) {
+           setAnswer('')
+        
             refetch()
             toast.success('answer added successfully')
         }
@@ -62,13 +62,13 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
                 toast.error(eme.data.message)
             }
         }
-        if (questionAnswer) {
-            if ('data' in questionAnswer) {
-                const eme = questionAnswer as any
+        if (questionReplyError) {
+            if ('data' in questionReplyError) {
+                const eme = questionReplyError as any
                 toast.error(eme.data.message)
             }
         }
-    }, [isSuccess, error,questionAnswer])
+    }, [isSuccess, error,questionReplySuccess,questionReplyError])
 
 
     const handelAnswerSubmit = () => {
@@ -144,7 +144,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
 
                                     </div>
                                     <div className="w-full flex justify-end">
-                                        <div className={`${style.button} !w-[120px] !h-[40px] text-[18px] mt-5 ${QuestionLoading && 'cursor-no-drop'}`} onClick={() => handelCommentSubmit()}>
+                                        <div className={`${style.button} !w-[120px] !h-[40px] text-[18px] mt-5 ${QuestionLoading && 'cursor-no-drop'}`} aria-disabled={comment===''} onClick={() => handelCommentSubmit()}>
                                             Submit
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@ const CommentReply = ({ answer, setQuestionId, activeVideo, data, setAnswer, han
 
 const CommentItem = ({ answer, setQuestionId, activeVideo, data, setAnswer, handelAnswerSubmit, item }: any) => {
     const [replyActive, setReplyActive] = useState(false)
-    console.log(item)
+    console.log({item})
     return (
         <>
             <div className="my-4">
