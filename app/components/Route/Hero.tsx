@@ -1,14 +1,35 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import { useGetBannerQuery } from "@/redux/features/layout/layout.Api";
+import Loader from "../Loader/Loader";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const Hero: FC<Props> = ({}) => {
   const { data, isLoading,refetch } = useGetBannerQuery("Banner",);
+
+  const [search,setSearch]=useState('')
+  const router=useRouter()
+
+  const handelSearch=()=>{
+    if(search.length===0){
+     
+      toast.error('Please enter a course name')
+    }else{
+      router.push(`/courses?title=${search}`)
+    }
+    
+  
+    
+  }
   return (
-    <div className="w-full min-h-screen p-5 gap-x-10 1000px:flex items-center dark:bg-[#000000] bg-white">
+  <>
+  {
+    isLoading?(<Loader/>):(
+      <div className="w-full min-h-screen p-5 gap-x-10 1000px:flex items-center dark:bg-[#000000] bg-white">
       <div className="flex justify-center ">
         <div className="relative w-[50vh] h-[50vh]">
           <div className=" w-[30vh] h-[30vh] 300px:w-[40vh] 300px:h-[40vh] 400px:w-[30vh]  400px:h-[30vh] 800px:h-[50vh] 800px:w-[50vh] rounded-full hero_animation absolute "></div>
@@ -35,10 +56,12 @@ const Hero: FC<Props> = ({}) => {
         <div className="w-full flex items-center relative">
           <input
             type="text"
+            value={search}
+            onChange={(e)=>setSearch(e.target.value)}
             placeholder="Search you course..."
             className="w-full p-1 appearance-none outline-none border border-[#232342]  rounded-sm focus:border-blue-700 "
           />
-          <button className=" bg-red-500 p-1">
+          <button onClick={handelSearch} className=" bg-red-500 p-1">
             <FaSearch size={24} />
           </button>
         </div>
@@ -70,6 +93,9 @@ const Hero: FC<Props> = ({}) => {
         </div>
       </div>
     </div>
+    )
+  }
+  </>
   );
 };
 

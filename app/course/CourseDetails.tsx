@@ -9,6 +9,7 @@ import { style } from "../styles/styels";
 import CourseContentList from "./CourseContentList";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckOutForm from "./payment/ChackOutForm";
+import Image from "next/image";
 
 type Props = {
   data: any;
@@ -22,7 +23,7 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
   const disCountPercentage =
     ((data?.estimatePrice - data?.price) / data?.estimatePrice) * 100;
   const disCountPercentagePrice = disCountPercentage.toFixed(2);
-  console.log(disCountPercentagePrice);
+
   const isPurchased = user?.courses?.find(
     (course: any) => course._id === data?._id
   );
@@ -129,7 +130,11 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
                           : data?.ratings.toFixed(2)}{' '}
                          Course Rating {data?.reviews?.length} Reviews
                       </h1>
+                   
                     </div>
+                
+
+
                     <br />
                     {(data?.review&& [...data.reviews].reverse())?.map((item:any,index:number)=>(
                         <div className="w-full pb-4" key={index}>
