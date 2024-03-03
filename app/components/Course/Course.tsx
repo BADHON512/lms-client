@@ -6,9 +6,9 @@ type Props = {}
 
 const Course = (props: Props) => {
     const {data,isLoading}=useGetAllCoursesForUsersQuery({})
-
+    console.log(data);
     const [Course, setCourse] = useState<any[]>([])
-    console.log(Course);
+   
     useEffect(() => {
         if(data){
             setCourse(data?.course)

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Ratings from "../utils/Ratings";
 import { IoCheckmarkCircleOutline, IoCloseOutline } from "react-icons/io5";
@@ -13,13 +13,17 @@ import Image from "next/image";
 
 type Props = {
   data: any;
-  clientSecret:string,
-  stripePromise:any
+  clientSecret: string,
+  stripePromise: any
+  setRoute: any
+  setOpen: any
+  paymentLoading: any
 };
 
-const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
+const CourseDetails = ({ data, clientSecret, stripePromise, setOpen: openAuthModel, setRoute,paymentLoading }: Props) => {
   const [open, setOpen] = useState(false)
   const { user } = useSelector((state: any) => state.auth);
+  const [User, setUser] = useState()
   const disCountPercentage =
     ((data?.estimatePrice - data?.price) / data?.estimatePrice) * 100;
   const disCountPercentagePrice = disCountPercentage.toFixed(2);
@@ -28,8 +32,18 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
     (course: any) => course._id === data?._id
   );
 
+  useEffect(( )=>{
+    setUser(user)
+  
+  },[user])
   const handleOrder = (e: any) => {
-    setOpen(true)
+    if (User) {
+      setOpen(true)
+    } else {
+      setRoute('Login')
+      openAuthModel(true)
+
+    }
   };
   return (
     <div>
@@ -43,11 +57,11 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
               <div className="flex items-center">
                 <Ratings rating={data?.ratings} />
                 <h5 className="text-black dark:text-white">
-                  {data.reviews?.length} Reviews
+                  {data?.reviews?.length} Reviews
                 </h5>
               </div>
               <h1 className="text-black dark:text-white">
-                {data.purchased} Students
+                {data?.purchased} Students
               </h1>
             </div>
 
@@ -105,7 +119,7 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
                     Course Overview
                   </h1>
 
-          <CourseContentList data={data.courseData} isDemo={true}/>
+                  <CourseContentList data={data?.courseData} isDemo={true} />
                 </div>
 
                 <br />
@@ -128,40 +142,40 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
                         {Number.isInteger(data?.ratings)
                           ? data?.ratings.toFixed(1)
                           : data?.ratings.toFixed(2)}{' '}
-                         Course Rating {data?.reviews?.length} Reviews
+                        Course Rating {data?.reviews?.length} Reviews
                       </h1>
-                   
+
                     </div>
-                
+
 
 
                     <br />
-                    {(data?.review&& [...data.reviews].reverse())?.map((item:any,index:number)=>(
-                        <div className="w-full pb-4" key={index}>
-                            <div className="flex">
-                                <div className="w-[50px] h-[50px]">
-                                    <div className="w-[50px] h-[50px]  bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
-                                        <h1 className="uppercase text-[18px] text-black dark:text-white">
-                                            {item?.user?.name.slice(0,2)}
-                                        </h1>
-                                    </div>
-                                </div>
-                                <div className="hidden 800px:block pl-2">
-                                    <div className="flex items-center">
-                                        <h1 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h1>
-                                        <Ratings rating={item.ratings}/>
-                                    </div>
-                                    <p className="text-[18px] text-black dark:text-white">{item.comment}</p>
-                                    <small className=" text-[#000000d1] dark:text-white">
-                                        {format(item.createdAt)}
-                                    </small>
-                                </div>
-                                <div className="800px:hidden pl-2 flex items-center">
-                                    <h1 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h1>
-                                    <Ratings rating={item.ratings}/>
-                                </div>
+                    {(data?.review && [...data.reviews].reverse())?.map((item: any, index: number) => (
+                      <div className="w-full pb-4" key={index}>
+                        <div className="flex">
+                          <div className="w-[50px] h-[50px]">
+                            <div className="w-[50px] h-[50px]  bg-slate-600 rounded-[50px] flex items-center justify-center cursor-pointer">
+                              <h1 className="uppercase text-[18px] text-black dark:text-white">
+                                {item?.user?.name.slice(0, 2)}
+                              </h1>
                             </div>
+                          </div>
+                          <div className="hidden 800px:block pl-2">
+                            <div className="flex items-center">
+                              <h1 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h1>
+                              <Ratings rating={item.ratings} />
+                            </div>
+                            <p className="text-[18px] text-black dark:text-white">{item.comment}</p>
+                            <small className=" text-[#000000d1] dark:text-white">
+                              {format(item.createdAt)}
+                            </small>
+                          </div>
+                          <div className="800px:hidden pl-2 flex items-center">
+                            <h1 className="text-[18px] pr-2 text-black dark:text-white">{item.user.name}</h1>
+                            <Ratings rating={item.ratings} />
+                          </div>
                         </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -170,50 +184,50 @@ const CourseDetails = ({ data,clientSecret,stripePromise }: Props) => {
           </div>
           <div className="w-full 800px:w-[45%] relative">
             <div className="sticky top-[100px] left-0 z-50 w-full">
-                < CoursePlayer videoUrl={data?.demoUrl} title={data?.title}/>
-                <div className="flex items-center">
-                  <h1 className="pt-5 text-[25px]  dark:text-white text-black">
-                    {data.price ===0 ?'Free': data.price + '$'}
-                  </h1>
-                  <h2 className="pl-3 text-[20px] mt-2 line-through opacity-80 dark:text-white text-black">{data.estimatePrice}</h2>
-                  <h2 className="pl-3 text-[20px] mt-2 dark:text-white text-black">{disCountPercentagePrice}% off</h2>
-                </div>
-                <div className="flex items-center">
-                  {isPurchased?(
-                    <Link href={`/course-access/${data._id}`} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}>Enter to Course</Link>
-                  ):(        <div onClick={handleOrder} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}> Buy Now {data.price + '$'}</div>)}
-                </div>
-                <br />
-                <p className=" pb-1 text-black dark:text-white">Source code included</p>
-                <p className=" pb-1 text-black dark:text-white">Full lifetime access</p>
-                <p className=" pb-1 text-black dark:text-white">Certificate of completion</p>
-                <p className=" pb-3 800px:pb-1 text-black dark:text-white ">Premium Support</p>
+              < CoursePlayer videoUrl={data?.demoUrl} title={data?.title} />
+              <div className="flex items-center">
+                <h1 className="pt-5 text-[25px]  dark:text-white text-black">
+                  {data?.price === 0 ? 'Free' : data?.price + '$'}
+                </h1>
+                <h2 className="pl-3 text-[20px] mt-2 line-through opacity-80 dark:text-white text-black">{data?.estimatePrice}</h2>
+                <h2 className="pl-3 text-[20px] mt-2 dark:text-white text-black">{disCountPercentagePrice}% off</h2>
+              </div>
+              <div className="flex items-center">
+                {isPurchased ? (
+                  <Link href={`/course-access/${data._id}`} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}>Enter to Course</Link>
+                ) : (<div onClick={handleOrder} className={`${style.button} !w-[180px] my-3 font-Poppins !bg-[crimson]`}> Buy Now {data?.price + '$'}</div>)}
+              </div>
+              <br />
+              <p className=" pb-1 text-black dark:text-white">Source code included</p>
+              <p className=" pb-1 text-black dark:text-white">Full lifetime access</p>
+              <p className=" pb-1 text-black dark:text-white">Certificate of completion</p>
+              <p className=" pb-3 800px:pb-1 text-black dark:text-white ">Premium Support</p>
             </div>
           </div>
         </div>
       </div>
       <>
-      {
-        open&&(
-          <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
-            <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow-lg p-3 ">
-           <div className="w-full flex justify-end">
-           <IoCloseOutline size={40} className='text-black cursor-pointer' onClick={()=>setOpen(false)}/>
-           </div>
-           <div className="w-full">
-            {
-              stripePromise&& clientSecret&&(
-                <Elements stripe={stripePromise} options={{clientSecret}}>
-                  <CheckOutForm setOpen={setOpen} data={data}/>
-                
-                </Elements>
-              )
-            }
-           </div>
+        {
+          open && (
+            <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
+              <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow-lg p-3 ">
+                <div className="w-full flex justify-end">
+                  <IoCloseOutline size={40} className='text-black cursor-pointer' onClick={() => setOpen(false)} />
+                </div>
+                <div className="w-full">
+                  {
+                    stripePromise && clientSecret && (
+                      <Elements stripe={stripePromise} options={{ clientSecret }}>
+                        <CheckOutForm setOpen={setOpen} data={data} paymentLoading={paymentLoading} user={user} />
+
+                      </Elements>
+                    )
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        )
-      }
+          )
+        }
       </>
     </div>
   );

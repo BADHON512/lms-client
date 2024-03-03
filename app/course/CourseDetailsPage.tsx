@@ -18,9 +18,9 @@ const CourseDetailsPage = ({ id }: Props) => {
     const [open, setOpen] = useState(false)
 
     const { data, isLoading, error } = useGetCourseDetailsQuery(id)
-    console.log(data)
+
     const { data: config } = useGetStripePublishableKeyQuery({})
-    const [newPayment, { data: paymentData, isLoading: payment }] = useNewPaymentMutation()
+    const [newPayment, { data: paymentData, isLoading: paymentLoading }] = useNewPaymentMutation()
     const [stripePromise, setStripePromise] = useState<any>(null)
     const [clientSecret, setClientSecret] = useState('')
     useEffect(() => {
@@ -60,8 +60,11 @@ const CourseDetailsPage = ({ id }: Props) => {
                             setOpen={setOpen}
                             activeItem={1} />
                         {
-                            stripePromise && (<CourseDetails data={data.course} stripePromise={stripePromise}
+                            stripePromise && (<CourseDetails data={data?.course} stripePromise={stripePromise}
                                 clientSecret={clientSecret}
+                                setOpen={setOpen}
+                                setRoute={setRoute}
+                                paymentLoading={paymentLoading}
                             />
 
                             )

@@ -11,6 +11,9 @@ import toast from 'react-hot-toast'
 import { format } from 'timeago.js'
 import { BiMessage } from 'react-icons/bi'
 import Ratings from '@/app/utils/Ratings'
+import socketIO from 'socket.io-client'
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || ''
+const socketId = socketIO(ENDPOINT, { transports: ['websocket'] })
 
 type Props = {
     data: any
@@ -29,14 +32,14 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
     const { isLoading } = useGetCourseContentQuery(id)
     const [rating, setRating] = useState<number>()
     const [review, setReview] = useState('')
- 
-    const [addNewQuestion, { error, isSuccess, isLoading: QuestionLoading }] = useAddNewQuestionMutation()
-    const [questionReply, { isLoading: answerLoading, error: questionReplyError, isSuccess: questionReplySuccess }] = useQuestionReplyMutation()
+
+    const [addNewQuestion, { error: addQuestionError, isSuccess: addQuestionSuccess, isLoading: QuestionLoading }] = useAddNewQuestionMutation()
+    const [questionReply, { error: questionReplyError, isSuccess: questionReplySuccess }] = useQuestionReplyMutation()
     const [answer, setAnswer] = useState('')
     const [questionId, setQuestionId] = useState('')
     const [reviewReplyId, setReviewReplyId] = useState('')
     const [FX, setFX] = useState('')
-    
+
 
 
     const [addReviews, { isSuccess: reviewsSuccess, error: reviewsError }] = useAddReviewsMutation()
@@ -47,7 +50,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
 
 
     const handelCommentSubmit = () => {
-        console.log('button click subbbbbbbb')
+
         if (comment.length === 0) {
             toast.error("Question can't empty")
         } else {
@@ -57,38 +60,65 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
 
 
     useEffect(() => {
-        if (isSuccess) {
+        if (addQuestionSuccess) {
             setComment(' ')
             refetch()
             toast.success('Question added successfully')
+            socketId.emit('notification', {
+                title: 'New Question Received',
+                message: ` you have a new question in ${data.content[activeVideo].title}`,
+                user: userData.user._id
+
+
+            })
         }
+
+
+        if (addQuestionError) {
+            if ('data' in addQuestionError) {
+                const eme = addQuestionError as any
+                toast.error(eme.data.message)
+            }
+        }
+
+    }, [addQuestionSuccess, addQuestionError])
+
+    useEffect(() => {
         if (questionReplySuccess) {
             setAnswer('')
 
             refetch()
             toast.success('answer added successfully')
-        }
+            if (userData.user.role !== 'admin') {
+                socketId.emit('notification', {
+                    title: 'New new Received',
+                    message: ` you have a new question reply in ${data.content[activeVideo].title}`,
+                    user: userData.user._id
 
-        if (error) {
-            if ('data' in error) {
-                const eme = error as any
-                toast.error(eme.data.message)
+                })
             }
         }
+
         if (questionReplyError) {
             if ('data' in questionReplyError) {
                 const eme = questionReplyError as any
                 toast.error(eme.data.message)
+
             }
         }
-    }, [isSuccess, error, questionReplySuccess, questionReplyError])
-
+    }, [questionReplySuccess, questionReplyError])
 
     useEffect(() => {
         if (reviewsSuccess) {
             setReview(' ')
             courseRefetch()
             toast.success('your review added successfully')
+            socketId.emit('notification', {
+                title: 'New Review Received',
+                message: ` you have a new Review in ${data.content[activeVideo].title}`,
+                user: userData.user._id
+
+            })
         }
 
 
@@ -104,7 +134,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
 
     useEffect(() => {
         if (ReviewsReplySuccess) {
-          
+
             setFX('')
             courseRefetch()
             toast.success('Review reply added successfully')
@@ -121,8 +151,8 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
     }, [ReviewsReplySuccess, ReviewsReplyError])
 
 
-    const handelAnswerSubmit = () => {
-        questionReply({ answer, questionId, courseId: id, contentId: data.content[activeVideo]._id })
+    const handelAnswerSubmit = async () => {
+        await questionReply({ answer, questionId, courseId: id, contentId: data.content[activeVideo]._id })
     }
 
     const userRatings = courseData && [...courseData?.course?.reviews].reverse()
@@ -141,7 +171,7 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
     }
 
     const handelReplyReviewSubmit = () => {
-      
+
         if (FX === '') {
             toast.error("Reply can't be empty")
         } else {
@@ -296,18 +326,18 @@ const CourseContentMedia = ({ data, setActiveVideo, activeVideo, id, userData, r
     )
 }
 
-const Review = ({ item, index, setReviewReplyId,FX,setFX, handelReplyReviewSubmit }: any) => {
+const Review = ({ item, index, setReviewReplyId, FX, setFX, handelReplyReviewSubmit }: any) => {
     const [replyRatingOf, serReplyRatingOf] = useState(false)
     const [RelyReview, setReplyReview] = useState()
-  
-      useEffect(()=>{
+
+    useEffect(() => {
         setFX(RelyReview)
-      },[RelyReview])
-    
+    }, [RelyReview])
+
     return (
         <div className="w-full" key={index}>
             <div className="w-full flex gap-x-5">
-                <Image src={item ? item.user.avatar.url : Avatar} alt='img not found' height={100} width={100}
+                <Image src={item ? item?.user?.avatar?.url : Avatar} alt='img not found' height={100} width={100}
                     className='h-[50px] w-[50px] rounded-full object-cover' />
 
                 <div className="w-full">
@@ -334,10 +364,10 @@ const Review = ({ item, index, setReviewReplyId,FX,setFX, handelReplyReviewSubmi
                                     <Image src={reply ? reply.user.avatar.url : Avatar} alt='img not found' height={100} width={100}
                                         className='h-[50px] w-[50px] rounded-full object-cover' />
 
-                               <div>
-                               <h1 className='  text-black dark:text-[#c9f06f] font-Poppins'>{reply.user.name}</h1>
-                               <p className=' text-[17px] text-black dark:text-white font-Poppins'>{reply.comment}</p>
-                               </div>
+                                    <div>
+                                        <h1 className='  text-black dark:text-[#c9f06f] font-Poppins'>{reply.user.name}</h1>
+                                        <p className=' text-[17px] text-black dark:text-white font-Poppins'>{reply.comment}</p>
+                                    </div>
                                 </div>
                             ))
                         }
@@ -346,7 +376,7 @@ const Review = ({ item, index, setReviewReplyId,FX,setFX, handelReplyReviewSubmi
                             <input type="text"
                                 placeholder='Enter your reply...'
                                 value={RelyReview}
-                                onChange={(e:any) => setReplyReview(e.target.value)}
+                                onChange={(e: any) => setReplyReview(e.target.value)}
                                 className='block 800px:ml-12 mt-2 outline-none bg-transparent border-b border-[#00000027] dark:border-white  text-black dark:text-white w-[90%]' />
                             <button type="submit" className='absolute right-20 bottom-1  text-black dark:text-white' onClick={handelReplyReviewSubmit} >Submit</button>
 
