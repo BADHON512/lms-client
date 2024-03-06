@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./ChangePassword";
+import EnrolledCourse from "./EnrolledCourse";
 type Props = {
   user: any;
 };
@@ -35,7 +36,7 @@ const Profile: FC<Props> = ({ user }) => {
     signOut();
   };
   return (
-    <div className="w-[85%] flex mx-auto">
+    <div className="w-[85%] flex mx-auto min-h-screen">
       <div
         className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-opacity-90 dark:border-[3px] border dark:border-[#ffffff1d] rounded-[5px] shadow-sm mt-[80px] mb-[80px] ${
           scroll ? "top-[120px]" : "top-[30px]"
@@ -58,6 +59,11 @@ const Profile: FC<Props> = ({ user }) => {
       {active === 2 && (
         <div className="w-full h-full bg-transparent mt-[80px]">
           <ChangePassword  user={user} />
+        </div>
+      )}
+        {active === 3 && (
+        <div className="w-full h-full bg-transparent mt-[80px]">
+          <EnrolledCourse user={user} />
         </div>
       )}
     </div>
