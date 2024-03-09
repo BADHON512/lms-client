@@ -34,6 +34,7 @@ const Profile: FC<Props> = ({ user }) => {
   const logOutHandler = async () => {
     setLogOut(true);
     signOut();
+    
   };
   return (
     <div className="w-[85%] flex mx-auto min-h-screen">
